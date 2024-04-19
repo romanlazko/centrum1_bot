@@ -30,7 +30,7 @@ class CalculatePriceAndQuality extends Command
     {
         $start_date = Carbon::parse($this->getConversation()->notes['start_date']);
         $end_date = Carbon::parse($this->getConversation()->notes['end_date']);
-        $count_of_month = ceil($end_date->diffInMonths($start_date));
+        $count_of_month = ceil($start_date->diffInMonths($end_date));
         
         $request = (object)[
             'count_of_month' => $count_of_month,
