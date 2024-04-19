@@ -28,7 +28,7 @@ class Type extends Command
             [array("Я БЕРЕМЕННАЯ", Calculate::$command, 'pregnant')],
             [array("Я ПРОФЕССИОНАЛЬНЫЙ СПОРТСМЕН", Calculate::$command, 'sport')],
             [array("Ничего из выше пречисленного", Calculate::$command, 'standart')],
-            [array(MenuCommand::getTitle('en'), MenuCommand::$command, '')],
+            [array(MenuCommand::getTitle('ru'), MenuCommand::$command, '')],
         ], 'type');
 
         $text = implode("\n", [

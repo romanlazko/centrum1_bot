@@ -27,7 +27,7 @@ class StartDate extends Command
 
         $buttons = BotApi::inlineKeyboard([
             [array("СВЯЗАТЬСЯ С МЕНЕДЖЕРОМ", MenuCommand::$command, '')],
-            [array(MenuCommand::getTitle('en'), MenuCommand::$command, '')],
+            [array(MenuCommand::getTitle('ru'), MenuCommand::$command, '')],
         ]);
 
         $text = implode("\n", [

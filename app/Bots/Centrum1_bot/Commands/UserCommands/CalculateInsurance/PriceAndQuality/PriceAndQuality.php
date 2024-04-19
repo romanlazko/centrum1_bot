@@ -3,6 +3,7 @@
 namespace App\Bots\Centrum1_bot\Commands\UserCommands\CalculateInsurance\PriceAndQuality;
 
 use App\Bots\Centrum1_bot\Commands\UserCommands\CalculateInsurance\AwaitBirth;
+use App\Bots\Centrum1_bot\Commands\UserCommands\CalculateInsurance\CalculateInsurance;
 use App\Bots\Centrum1_bot\Commands\UserCommands\MenuCommand;
 use Romanlazko\Telegram\App\BotApi;
 use Romanlazko\Telegram\App\Commands\Command;
@@ -37,9 +38,14 @@ class PriceAndQuality extends Command
             "*Напишите пожалуйста свою дату рождения в формате ДД.ММ.ГГГГ:*"
         ]);
 
+        $buttons = BotApi::inlineKeyboard([
+            [array("⬅️ Назад", CalculateInsurance::$command, '')],
+        ]);
+
         $data = [
             'text'          =>  $text,
             'chat_id'       =>  $updates->getChat()->getId(),
+            'reply_markup'  =>  $buttons,
             'parse_mode'    =>  'Markdown',
             'message_id'    =>  $updates->getCallbackQuery()?->getMessage()->getMessageId(),
         ];

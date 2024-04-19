@@ -3,6 +3,7 @@
 namespace App\Bots\Centrum1_bot\Commands\UserCommands\CalculateInsurance\ContinuingTreatment;
 
 use App\Bots\Centrum1_bot\Commands\UserCommands\CalculateInsurance\AwaitBirth;
+use App\Bots\Centrum1_bot\Commands\UserCommands\CalculateInsurance\CalculateInsurance;
 use App\Bots\Centrum1_bot\Commands\UserCommands\MenuCommand;
 use Romanlazko\Telegram\App\BotApi;
 use Romanlazko\Telegram\App\Commands\Command;
@@ -31,8 +32,9 @@ class ContinuingTreatment extends Command
         ]);
 
         $text = implode("\n", [
-            "(Тут текст)"."\n",
-            "Выберите страховку для продолжения лечения",
+            "В случае если вы проходите актуально лечение или у вас есть вероятность необходимости дальнейшего лечения по старому заболеванию - *мы рекомендуем* продление вашей действующей страховки, для избежания проблем с покрытием затрат на дальнейшее лечение."."\n",
+
+            "Давайте посчитаем, сколько будет стоить продлить вашу страховку, *для этого выберите свою компанию⬇*",
         ]);
 
         $buttons = BotApi::inlineKeyboard([
@@ -41,8 +43,7 @@ class ContinuingTreatment extends Command
             [array("pVZP", SaveInsurance::$command, 'pvzp')],
             [array("Slavia", SaveInsurance::$command, 'slavia')],
             [array("Colonade", SaveInsurance::$command, 'colonade')],
-
-            [array(MenuCommand::getTitle('ru'), MenuCommand::$command, '')],
+            [array("⬅️ Назад", CalculateInsurance::$command, '')],
         ], 'current_insurance');
 
         $data = [

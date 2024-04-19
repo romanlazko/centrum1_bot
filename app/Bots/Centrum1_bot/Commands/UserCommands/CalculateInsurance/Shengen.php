@@ -26,7 +26,7 @@ class Shengen extends Command
         $buttons = BotApi::inlineKeyboard([
             [array("ДА", Type::$command, true)],
             [array("НЕТ, ХОЧУ СЭКОНОМИТЬ", Type::$command, false)],
-            [array(MenuCommand::getTitle('en'), MenuCommand::$command, '')],
+            [array(MenuCommand::getTitle('ru'), MenuCommand::$command, '')],
         ], 'shengen');
 
         $text = implode("\n", [

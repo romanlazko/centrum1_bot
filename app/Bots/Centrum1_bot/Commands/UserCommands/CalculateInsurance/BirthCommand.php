@@ -26,7 +26,7 @@ class BirthCommand extends Command
         $updates->getFrom()->setExpectation(AwaitBirth::$expectation);
 
         $buttons = BotApi::inlineKeyboard([
-            [array(MenuCommand::getTitle('en'), MenuCommand::$command, '')],
+            [array(MenuCommand::getTitle('ru'), MenuCommand::$command, '')],
         ]);
 
         $text = implode("\n", [
