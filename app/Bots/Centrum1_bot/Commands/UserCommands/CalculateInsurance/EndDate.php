@@ -8,22 +8,22 @@ use Romanlazko\Telegram\App\Commands\Command;
 use Romanlazko\Telegram\App\Entities\Response;
 use Romanlazko\Telegram\App\Entities\Update;
 
-class StartDate extends Command
+class EndDate extends Command
 {
-    public static $command = 'start_date';
+    public static $command = 'end_date';
 
     public static $title = [
-        'ru' => 'Начало страховки',
-        'en' => 'Start of insurance',
+        'ru' => 'Количество месяцев',
+        'en' => 'Count of month',
     ];
 
-    public static $usage = ['start_date'];
+    public static $usage = ['end_date'];
 
     protected $enabled = true;
 
     public function execute(Update $updates): Response
     {
-        $updates->getFrom()->setExpectation(AwaitStartDate::$expectation);
+        $updates->getFrom()->setExpectation(AwaitEndDate::$expectation);
 
         $buttons = BotApi::inlineKeyboard([
             [array("СВЯЗАТЬСЯ С МЕНЕДЖЕРОМ", MenuCommand::$command, '')],
@@ -31,9 +31,7 @@ class StartDate extends Command
         ]);
 
         $text = implode("\n", [
-            "Теперь давайте посчитаем срок, на который вам нужна страховка."."\n",
-            "Напишите пожалуйста *ОТ какого числа вам нужна новая страховка*, в формате ДД.ММ.ГГГГ:"."\n",
-            "_Обычно это следующий день, после окончания актуальной страховки_"
+            "Напишите пожалуйста дату *ДО какого числа вам нужна новая страховка*, в формате ДД.ММ.ГГГГ:"
         ]);
 
         $data = [

@@ -42,7 +42,8 @@ class CommandsList extends DefaultCommandsList
             UserCommands\CalculateInsurance\StartDate::class,
             UserCommands\CalculateInsurance\AwaitStartDate::class,
 
-            UserCommands\CalculateInsurance\CountOfMonth::class,
+            UserCommands\CalculateInsurance\EndDate::class,
+            UserCommands\CalculateInsurance\AwaitEndDate::class,
 
             UserCommands\CalculateInsurance\Shengen::class,
 

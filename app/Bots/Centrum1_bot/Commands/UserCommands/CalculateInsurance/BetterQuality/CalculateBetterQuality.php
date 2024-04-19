@@ -7,6 +7,7 @@ use App\Models\Colonnade;
 use App\Models\Maxima;
 use App\Models\Slavia;
 use App\Models\VZP;
+use Carbon\Carbon;
 use Romanlazko\Telegram\App\BotApi;
 use Romanlazko\Telegram\App\Commands\Command;
 use Romanlazko\Telegram\App\Entities\Response;
@@ -27,8 +28,12 @@ class CalculateBetterQuality extends Command
 
     public function execute(Update $updates): Response
     {
+        $start_date = Carbon::parse($this->getConversation()->notes['start_date']);
+        $end_date = Carbon::parse($this->getConversation()->notes['end_date']);
+        $count_of_month = $end_date->diffInMonths($start_date);
+        
         $request = (object)[
-            'count_of_month' => $updates->getInlineData()->getCountOfMonth(),
+            'count_of_month' => $count_of_month,
             'birth' => $this->getConversation()->notes['birth'],
             'type' => $updates->getInlineData()->getType(),
             'shengen' => $updates->getInlineData()->getShengen() == '1' ? true : false
