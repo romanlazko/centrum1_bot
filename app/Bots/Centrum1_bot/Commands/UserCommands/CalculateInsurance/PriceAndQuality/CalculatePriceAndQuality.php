@@ -42,7 +42,7 @@ class CalculatePriceAndQuality extends Command
         $insurance = Maxima::filterByRequest($request)->sortBy('price')->first();
 
         if ($insurance == null) {
-            return $this->handleError('*Не удалось подобрать страховку с заданными параметрами*');
+            return $this->handleError('*Не удалось подобрать страховку с заданными параметрами*'.$count_of_month);
         }
 
         $text = implode("\n", [
