@@ -24,10 +24,10 @@ class Type extends Command
     public function execute(Update $updates): Response
     {
         $buttons = BotApi::inlineKeyboard([
-            [array("Я СТУДЕНТ", Calculate::$command, 'student')],
-            [array("Я БЕРЕМЕННАЯ", Calculate::$command, 'pregnant')],
-            [array("Я ПРОФЕССИОНАЛЬНЫЙ СПОРТСМЕН", Calculate::$command, 'sport')],
-            [array("Ничего из выше пречисленного", Calculate::$command, 'standart')],
+            [array("Я СТУДЕНТ/КА", Calculate::$command, 'student')],
+            [array("Я БЕРЕМЕННА ИЛИ ПЛАНИРУЮ", Calculate::$command, 'pregnant')],
+            [array("Я ПРОФЕССИОНАЛЬНЫЙ СПОРТСМЕН/КА", Calculate::$command, 'sport')],
+            [array("НЕ ПОПАДАЮ НИ В ОДНУ КАТЕГОРИЮ", Calculate::$command, 'standart')],
             [array(MenuCommand::getTitle('ru'), MenuCommand::$command, '')],
         ], 'type');
 

@@ -30,7 +30,7 @@ class CalculateLowestCost extends Command
     {
         $start_date = Carbon::parse($this->getConversation()->notes['start_date']);
         $end_date = Carbon::parse($this->getConversation()->notes['end_date']);
-        $count_of_month = ceil($end_date->diffInMonths($start_date));
+        $count_of_month = ceil($start_date->diffInMonths($end_date));
         
         $request = (object)[
             'count_of_month' => $count_of_month,
@@ -55,7 +55,7 @@ class CalculateLowestCost extends Command
         }
 
         $text = implode("\n", [
-            "Мы подобрали для вас самую подходящую страховку и более того, добавили к ней все существующие актульно скидки и бонусы!"."\n",
+            "Мы подобрали для вас самую подходящую страховку и более того, добавили к ней все существующие актульно скидки и бонусы, о которых вам расскажет менеджер при оформлении договора!"."\n",
             "Вам подходит страховка: *".($insurance->type ?? $insurance->insurance)."*\n",
             "Её цена для вас составит на ". $updates->getInlineData()->getCountOfMonth() . " месяцев - " . $insurance->price . " крон!"."\n",
             "Обратите внимание, что в страховку ". ($updates->getInlineData()->getShengen() == '1' ? "*включено покрытие зоны Шенген*" : "*не включено покрытие зоны Шенген*"),
