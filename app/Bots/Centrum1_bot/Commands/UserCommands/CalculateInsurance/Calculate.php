@@ -41,10 +41,11 @@ class Calculate extends Command
             'count_of_month' => $count_of_month,
             'birth' => $this->getConversation()->notes['birth'],
             'type' => $updates->getInlineData()->getType(),
-            'shengen' => $updates->getInlineData()->getShengen() == '1' ? true : false
+            'shengen' => $updates->getInlineData()->getShengen() == '1' ? true : false,
+            'start_date' => $start_date,
         ];
 
-        $insurance = $this->getInsurance($request)();
+        $insurance = $this->getInsurance()($request);
 
         if ($insurance == null) {
             return $this->handleError('*Не удалось подобрать страховку с заданными параметрами*');
@@ -75,12 +76,10 @@ class Calculate extends Command
         return BotApi::returnInline($data);
     }
 
-    public function getInsurance($request)
+    public function getInsurance()
     {
-        
-
         return match ($this->getConversation()->notes['criterium']) {
-            'lowest_cost' => function () use ($request) {
+            'lowest_cost' => function ($request) {
                 $collection = collect([
                     Slavia::filterByRequest($request)->sortBy('price')->take(1),
                     Maxima::filterByRequest($request)->sortBy('price')->take(1),
@@ -91,11 +90,11 @@ class Calculate extends Command
                 return $collection->flatten()->sortBy('price')->first();
             },
 
-            'price_and_quality' => function () use ($request) {
+            'price_and_quality' => function ($request) {
                 return Maxima::filterByRequest($request)->sortBy('price')->first();
             },
 
-            'continuing_treatment' => function () use ($request) {
+            'continuing_treatment' => function ($request) {
                 return match ($this->getConversation()->notes['current_insurance']) {
                     'pvzp' => VZP::filterByRequest($request)->sortBy('price')->first(),
                     'maxima' => Maxima::filterByRequest($request)->sortBy('price')->first(),
@@ -106,7 +105,7 @@ class Calculate extends Command
                 };
             },
 
-            'better_quality' => function () use ($request) {
+            'better_quality' => function ($request) {
                 return VZP::filterByRequest($request)->sortBy('price')->first();
             },
 

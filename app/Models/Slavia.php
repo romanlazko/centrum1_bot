@@ -27,8 +27,8 @@ class Slavia extends Model
             ->filter(function ($price) use ($request) {
                 $birth   = Carbon::parse($request->birth);
 
-                $min_age = self::calculateAge($price->min_age);
-                $max_age = self::calculateAge($price->max_age)->subYear(1);
+                $min_age = self::calculateAge($request->start_date, $price->min_age);
+                $max_age = self::calculateAge($request->start_date, $price->max_age)->subYear(1);
 
                 return $birth->lessThanOrEqualTo($min_age) && $birth->greaterThanOrEqualTo($max_age) ;
             })
