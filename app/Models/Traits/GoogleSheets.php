@@ -16,13 +16,13 @@ trait GoogleSheets
         return Sheets::collection(header: $header, rows: $rows)->values()->toArray();
     }
 
-    protected static function calculateAge(Carbon $start_date, string $ageString): Carbon
+    protected static function calculateAge(string $start_date, string $ageString): Carbon
     {
         if (str_contains($ageString, 'year')) {
-            return $start_date->subYears((int)filter_var($ageString, FILTER_SANITIZE_NUMBER_INT));
+            return Carbon::parse($start_date)->subYears((int)filter_var($ageString, FILTER_SANITIZE_NUMBER_INT));
         }
         if (str_contains($ageString, 'days')) {
-            return $start_date->subDays((int)filter_var($ageString, FILTER_SANITIZE_NUMBER_INT));
+            return Carbon::parse($start_date)->subDays((int)filter_var($ageString, FILTER_SANITIZE_NUMBER_INT));
         }
     }
 

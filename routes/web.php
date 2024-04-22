@@ -12,23 +12,34 @@ use Revolution\Google\Sheets\Facades\Sheets;
 
 Route::get('/', function (Request $request) {
     $insurances = null;
-    
-    // dd($request->month);
-    if ($request->filled(['birth', 'count_of_month'])) {
-        $collections = collect([
-            Slavia::filterByRequest($request),
+    if ($request->filled(['birth'])) {
 
-            Maxima::filterByRequest($request),
-            Colonnade::filterByRequest($request),
-            // SV::filterByAge(Carbon::parse($request->birth), $request->month, $request->is_student),
-            VZP::filterByRequest($request),
+        dump($request->start_date);
+
+        $start_date = Carbon::parse($request->start_date);
+        $end_date = Carbon::parse($request->end_date);
+        $count_of_month = ceil($start_date->diffInMonths($end_date));
+
+        $data = (object)[
+            'type' => $request->type,
+            'shengen' => $request->shengen,
+            'start_date' => $request->start_date,
+            'end_date'  => $request->end_date,
+            'count_of_month' => $count_of_month,
+            'birth' => $request->birth,
+        ];
+        $collections = collect([
+            Slavia::filterByRequest($data),
+            Maxima::filterByRequest($data),
+            Colonnade::filterByRequest($data),
+            VZP::filterByRequest($data),
         ]);
     
         $insurances = $collections->flatten()->sortBy('price');
     }
     
     return view('welcome', [
-        'birth' => optional(Carbon::parse($request->birth)),
         'insurances' => $insurances,
+        'data' => $data
     ]);
 })->name('welcome');

@@ -16,8 +16,11 @@
             <input id="birth" type="date" name="birth" required value="{{ old('birth', request()->birth) }}">
             <hr>
 
-            <label for="count_of_month">Count of month</label>
-            <input id="count_of_month" type="number" name="count_of_month" required value="{{ old('count_of_month', request()->count_of_month) }}">
+            <label for="start_date">Start date</label>
+            <input id="start_date" type="date" name="start_date" required value="{{ old('start_date', request()->start_date) }}">
+            <hr>
+            <label for="end_date">End date</label>
+            <input id="end_date" type="date" name="end_date" required value="{{ old('end_date', request()->end_date) }}">
             <hr>
 
             <label for="standart">Standart</label>
@@ -39,7 +42,10 @@
 
         @if (isset($insurances))
             <p>
-                Your age: {{ $birth->diff(now())->y }}
+                Your age: {{ $data->start_date }}
+            </p>
+            <p>
+                {{-- Count of month: {{ $data->count_of_month }} --}}
             </p>
             @foreach ($insurances as $insurance)
                 <p>
