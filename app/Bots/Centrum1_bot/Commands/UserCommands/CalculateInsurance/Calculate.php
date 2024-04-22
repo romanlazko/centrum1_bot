@@ -60,7 +60,7 @@ class Calculate extends Command
         ]);
 
         $buttons = BotApi::inlineKeyboardWithLink(
-            array('text' => "ОФОРМИТЬ СТРАХОВКУ", 'web_app' => ['url' => 'https://taplink.cc/strachovanie1/p/pojisteni/']),
+            array('text' => "ОФОРМИТЬ СТРАХОВКУ", 'web_app' => ['url' => 'https://forms.amocrm.ru/rvcmwdc']),
             [
                 [array("РАССКАЖИТЕ ПОДРОБНЕЕ О СТРАХОВКЕ", MenuCommand::$command, '')],
                 [array("СВЯЗАТЬСЯ С МЕНЕДЖЕРОМ",ContactManager::$command, '')],
