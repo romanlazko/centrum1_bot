@@ -4,6 +4,7 @@ namespace App\Bots\Centrum1_bot\Commands\UserCommands\CalculateInsurance\Continu
 
 use App\Bots\Centrum1_bot\Commands\UserCommands\CalculateInsurance\AwaitBirth;
 use App\Bots\Centrum1_bot\Commands\UserCommands\CalculateInsurance\CalculateInsurance;
+use App\Bots\Centrum1_bot\Commands\UserCommands\ContactManager;
 use App\Bots\Centrum1_bot\Commands\UserCommands\MenuCommand;
 use Romanlazko\Telegram\App\BotApi;
 use Romanlazko\Telegram\App\Commands\Command;
@@ -38,7 +39,7 @@ class ContinuingTreatment extends Command
         ]);
 
         $buttons = BotApi::inlineKeyboard([
-            [array("СВЯЗАТЬСЯ С МЕНЕДЖЕРОМ", MenuCommand::$command, '')],
+            [array("СВЯЗАТЬСЯ С МЕНЕДЖЕРОМ", ContactManager::$command, '')],
             [array("Maxima", SaveInsurance::$command, 'maxima')],
             [array("pVZP", SaveInsurance::$command, 'pvzp')],
             [array("Slavia", SaveInsurance::$command, 'slavia')],

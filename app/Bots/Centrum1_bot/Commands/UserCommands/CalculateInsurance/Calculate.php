@@ -37,14 +37,6 @@ class Calculate extends Command
         $end_date = Carbon::parse($this->getConversation()->notes['end_date']);
         $count_of_month = ceil($start_date->diffInMonths($end_date));
 
-        // $request = (object)[
-        //     'count_of_month' => $count_of_month,
-        //     'birth' => $this->getConversation()->notes['birth'],
-        //     'type' => $updates->getInlineData()->getType(),
-        //     'shengen' => $updates->getInlineData()->getShengen() == '1' ? true : false,
-        //     'start_date' => $start_date,
-        // ];
-
         $data = (object)[
             'type' => $updates->getInlineData()->getType(),
             'shengen' => $updates->getInlineData()->getShengen() == '1' ? true : false,
