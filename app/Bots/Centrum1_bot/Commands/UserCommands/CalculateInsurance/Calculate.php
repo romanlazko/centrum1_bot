@@ -7,6 +7,7 @@ use App\Bots\Centrum1_bot\Commands\UserCommands\CalculateInsurance\ContinuingTre
 use App\Bots\Centrum1_bot\Commands\UserCommands\CalculateInsurance\LowestCost\CalculateLowestCost;
 use App\Bots\Centrum1_bot\Commands\UserCommands\CalculateInsurance\LowestCost\LowestCost;
 use App\Bots\Centrum1_bot\Commands\UserCommands\CalculateInsurance\PriceAndQuality\CalculatePriceAndQuality;
+use App\Bots\Centrum1_bot\Commands\UserCommands\ContactManager;
 use App\Bots\Centrum1_bot\Commands\UserCommands\MenuCommand;
 use App\Models\Colonnade;
 use App\Models\Maxima;
@@ -58,12 +59,14 @@ class Calculate extends Command
             "Обратите внимание, что в страховку ". ($updates->getInlineData()->getShengen() == '1' ? "*включено покрытие зоны Шенген*" : "*не включено покрытие зоны Шенген*"),
         ]);
 
-        $buttons = BotApi::inlineKeyboard([
-            [array("РАССКАЖИТЕ ПОДРОБНЕЕ О СТРАХОВКЕ", MenuCommand::$command, '')],
-            [array("ОФОРМИТЬ СТРАХОВКУ", MenuCommand::$command, '')],
-            [array("СВЯЗАТЬСЯ С МЕНЕДЖЕРОМ", MenuCommand::$command, '')],
-            [array(MenuCommand::getTitle('ru'), MenuCommand::$command, '')],
-        ]);
+        $buttons = BotApi::inlineKeyboardWithLink(
+            array('text' => "ОФОРМИТЬ СТРАХОВКУ", 'web_app' => ['url' => 'https://taplink.cc/strachovanie1/p/pojisteni/']),
+            [
+                [array("РАССКАЖИТЕ ПОДРОБНЕЕ О СТРАХОВКЕ", MenuCommand::$command, '')],
+                [array("СВЯЗАТЬСЯ С МЕНЕДЖЕРОМ",ContactManager::$command, '')],
+                [array(MenuCommand::getTitle('ru'), MenuCommand::$command, '')],
+            ]
+        );
 
         $data = [
             'text'          =>  $text,
