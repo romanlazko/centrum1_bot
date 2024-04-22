@@ -22,12 +22,12 @@ class ContactManager extends Command
 
     public function execute(Update $updates): Response
     {
-        $buttons = BotApi::inlineKeyboardWithLink([
-            array('text' => 'Написать менеджеру', 'url' => 'https://t.me/centr1_cz')
-        ],
-        [
-            [array(MenuCommand::getTitle('en'), MenuCommand::$command, '')],
-        ]);
+        $buttons = BotApi::inlineKeyboardWithLink(
+            array('text' => 'Написать менеджеру', 'url' => 'https://t.me/centr1_cz'),
+            [
+                [array(MenuCommand::getTitle('en'), MenuCommand::$command, '')],
+            ]
+        );
 
         $text = implode("\n", [
             "Менеджеру было отправлено уведомление о том что вы хотите связаться с нами."."\n",
