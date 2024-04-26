@@ -39,7 +39,6 @@ class SendContact extends Command
             'chat_id'       =>  '1019462085',
             'reply_markup'  =>  $buttons,
             'parse_mode'    =>  'Markdown',
-            'message_id'    =>  $updates->getCallbackQuery()?->getMessage()->getMessageId(),
         ];
 
         return BotApi::sendMessage($data);
