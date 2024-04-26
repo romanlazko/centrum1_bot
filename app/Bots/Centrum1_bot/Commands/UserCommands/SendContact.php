@@ -36,7 +36,7 @@ class SendContact extends Command
 
         $data = [
             'text'          =>  $text,
-            'chat_id'       =>  ['1019462085', '544883527'],
+            'chat_ids'       =>  ['1019462085', '544883527'],
             'reply_markup'  =>  $buttons,
             'parse_mode'    =>  'Markdown',
         ];
