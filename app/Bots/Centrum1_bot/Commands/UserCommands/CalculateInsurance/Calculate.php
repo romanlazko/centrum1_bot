@@ -12,6 +12,7 @@ use App\Bots\Centrum1_bot\Commands\UserCommands\MenuCommand;
 use App\Models\Colonnade;
 use App\Models\Maxima;
 use App\Models\Slavia;
+use App\Models\SV;
 use App\Models\VZP;
 use Carbon\Carbon;
 use Romanlazko\Telegram\App\BotApi;
@@ -89,6 +90,7 @@ class Calculate extends Command
                     Maxima::filterByRequest($request)->sortBy('price')->take(1),
                     Colonnade::filterByRequest($request)->sortBy('price')->take(1),
                     VZP::filterByRequest($request)->sortBy('price')->take(1),
+                    SV::filterByRequest($request)->sortBy('price')->take(1),
                 ]);
             
                 return $collection->flatten()->sortBy('price')->first();
@@ -104,7 +106,7 @@ class Calculate extends Command
                     'maxima' => Maxima::filterByRequest($request)->sortBy('price')->first(),
                     'slavia' => Slavia::filterByRequest($request)->sortBy('price')->first(),
                     'colonade' => Colonnade::filterByRequest($request)->sortBy('price')->first(),
-                    // 'sv' => SV::filterByRequest($request)->sortBy('price')->first(),
+                    'sv' => SV::filterByRequest($request)->sortBy('price')->first(),
                     default => null
                 };
             },

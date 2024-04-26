@@ -12,8 +12,8 @@ class ContactManager extends Command
     public static $command = 'contact_manager';
 
     public static $title = [
-        'ru' => 'Связь с менеджером',
-        'en' => 'Contact manager',
+        'ru' => 'СВЯЗАТЬСЯ С МЕНЕДЖЕРОМ',
+        'en' => 'CONTACT MANAGER',
     ];
 
     public static $usage = ['contact_manager'];
@@ -27,12 +27,16 @@ class ContactManager extends Command
         );
 
         $text = implode("\n", [
-            "Клиент отправил запрос на связь с менеджером.", 
+            "*Клиент отправил запрос на связь с менеджером:*"."\n",
+            "Имя: *{$updates->getChat()->getFirstName()}*",
+            "Фамилия: *{$updates->getChat()->getLastName()}*",
+            "ID: *{$updates->getChat()->getId()}*",
+            "Username: *{$updates->getChat()->getUsername()}*",
         ]);
 
         $data = [
             'text'          =>  $text,
-            'chat_ids'       =>  ['372440193', '544883527'],
+            'chat_ids'       =>  ['372440193', '544883527', '1019462085', '538296130'],
             'reply_markup'  =>  $buttons,
             'parse_mode'    =>  'Markdown',
             'message_id'    =>  $updates->getCallbackQuery()?->getMessage()->getMessageId(),

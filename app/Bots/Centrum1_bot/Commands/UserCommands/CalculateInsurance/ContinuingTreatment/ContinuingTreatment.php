@@ -39,11 +39,12 @@ class ContinuingTreatment extends Command
         ]);
 
         $buttons = BotApi::inlineKeyboard([
-            [array("СВЯЗАТЬСЯ С МЕНЕДЖЕРОМ", ContactManager::$command, '')],
+            [array(ContactManager::getTitle('ru'), ContactManager::$command, '')],
             [array("Maxima", SaveInsurance::$command, 'maxima')],
             [array("pVZP", SaveInsurance::$command, 'pvzp')],
             [array("Slavia", SaveInsurance::$command, 'slavia')],
             [array("Colonade", SaveInsurance::$command, 'colonade')],
+            [array("SV", SaveInsurance::$command, 'sv')],
             [array("⬅️ Назад", CalculateInsurance::$command, '')],
         ], 'current_insurance');
 
