@@ -40,7 +40,7 @@ class ContactManager extends Command
         $result = BotApi::sendMessage($data);
 
         if ($result->getOk()) {
-            return $this->bot->executeCommand(SendContact::class);
+            return $this->bot->executeCommand(SendContact::$command);
         }
     }
 }
