@@ -18,6 +18,7 @@ class CommandsList extends DefaultCommandsList
             UserCommands\MenuCommand::class,
             UserCommands\HelpCommand::class,
             UserCommands\ContactManager::class,
+            UserCommands\SendContact::class,
 
             
             UserCommands\CalculateInsurance\CalculateInsurance::class,
