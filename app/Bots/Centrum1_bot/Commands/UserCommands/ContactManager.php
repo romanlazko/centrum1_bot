@@ -31,7 +31,7 @@ class ContactManager extends Command
             "Имя: *{$updates->getChat()->getFirstName()}*",
             "Фамилия: *{$updates->getChat()->getLastName()}*",
             "ID: *{$updates->getChat()->getId()}*",
-            "Username: *{$updates->getChat()->getUsername()}*",
+            "Username: *@{$updates->getChat()->getUsername()}*",
         ]);
 
         $data = [
