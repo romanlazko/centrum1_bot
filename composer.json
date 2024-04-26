@@ -7,6 +7,7 @@
     "require": {
         "php": "^8.2",
         "calebporzio/sushi": "^2.5",
+        "laravel/breeze": "^2.0",
         "laravel/framework": "^11.0",
         "laravel/tinker": "^2.9",
         "revolution/laravel-google-sheets": "^6.3",
