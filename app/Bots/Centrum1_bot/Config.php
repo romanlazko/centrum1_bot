@@ -14,6 +14,7 @@ class Config
                 'count_of_month'    => 12,
                 'criterion'         => null,
                 'current_insurance' => null,
+                'name'              => null,
             ],
             'lang'              => 'ru',
             'admin_ids'         => [

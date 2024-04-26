@@ -54,7 +54,7 @@ class Calculate extends Command
 
         $text = implode("\n", [
             "Мы подобрали для вас самую подходящую страховку и более того, добавили к ней все существующие актульно скидки и бонусы, о которых вам расскажет менеджер при оформлении договора!"."\n",
-            "Вам подходит страховка: *".($insurance->type ?? $insurance->insurance)."*\n",
+            "Вам подходит страховка: *{$insurance->type}*\n",
             "Её цена для вас составит на ". $count_of_month . " месяцев - " . $insurance->price . " крон!"."\n",
             "Обратите внимание, что в страховку ". ($updates->getInlineData()->getShengen() == '1' ? "*включено покрытие зоны Шенген*" : "*не включено покрытие зоны Шенген*"),
         ]);
@@ -62,10 +62,11 @@ class Calculate extends Command
         $buttons = BotApi::inlineKeyboardWithLink(
             array('text' => "ОФОРМИТЬ СТРАХОВКУ", 'web_app' => ['url' => 'https://forms.amocrm.ru/rvcmwdc']),
             [
-                [array("РАССКАЖИТЕ ПОДРОБНЕЕ О СТРАХОВКЕ", MenuCommand::$command, '')],
-                [array("СВЯЗАТЬСЯ С МЕНЕДЖЕРОМ",ContactManager::$command, '')],
+                [array(InsuranceInfo::getTitle('ru'), InsuranceInfo::$command, $insurance->name)],
+                [array(ContactManager::getTitle('ru'), ContactManager::$command, '')],
                 [array(MenuCommand::getTitle('ru'), MenuCommand::$command, '')],
-            ]
+            ],
+            'name'
         );
 
         $data = [

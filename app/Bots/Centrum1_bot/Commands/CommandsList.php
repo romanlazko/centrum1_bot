@@ -50,6 +50,7 @@ class CommandsList extends DefaultCommandsList
 
             UserCommands\CalculateInsurance\Type::class,
             UserCommands\CalculateInsurance\Calculate::class,
+            UserCommands\CalculateInsurance\InsuranceInfo::class,
         ],
         
     ];

@@ -23,25 +23,28 @@ class ContactManager extends Command
     public function execute(Update $updates): Response
     {
         $buttons = BotApi::inlineKeyboardWithLink(
-            array('text' => 'Написать менеджеру', 'url' => 'https://t.me/centr1_cz'),
-            [
-                [array(MenuCommand::getTitle('en'), MenuCommand::$command, '')],
-            ]
+            array('text' => 'Контакт', 'url'  => "tg://user?id={$updates->getChat()->getId()}")
         );
 
         $text = implode("\n", [
-            "Менеджеру было отправлено уведомление о том что вы хотите связаться с нами."."\n",
-            "Вы в любой момент можете сами написать нам вопрос, это ускорит ответ.", 
+            "Клиент отправил запрос на связь с менеджером.", 
         ]);
 
         $data = [
             'text'          =>  $text,
-            'chat_id'       =>  $updates->getChat()->getId(),
+            'chat_ids'       =>  ['372440193', '544883527'],
             'reply_markup'  =>  $buttons,
             'parse_mode'    =>  'Markdown',
             'message_id'    =>  $updates->getCallbackQuery()?->getMessage()->getMessageId(),
         ];
 
-        return BotApi::returnInline($data);
+        $result = BotApi::sendMessages($data);
+
+        if ($result->isOk()) {
+            return BotApi::answerCallbackQuery([
+                'callback_query_id' => $updates->getCallbackQuery()->getId(),
+                'text' => "Спасибо за ваш запрос. Наши менеджеры уже спешат вам помочь 👩‍💻",
+            ]);
+        }
     }
 }
