@@ -40,10 +40,11 @@ class ContactManager extends Command
 
         $result = BotApi::sendMessages($data);
 
-        if ($result->isOk()) {
+        if ($result->getOk()) {
             return BotApi::answerCallbackQuery([
                 'callback_query_id' => $updates->getCallbackQuery()->getId(),
                 'text' => "Спасибо за ваш запрос. Наши менеджеры уже спешат вам помочь 👩‍💻",
+                'show_alert'        => true
             ]);
         }
     }
