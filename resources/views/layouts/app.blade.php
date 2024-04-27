@@ -12,7 +12,14 @@
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
         <!-- Scripts -->
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
+        <style>
+            [x-cloak] {
+                display: none !important;
+            }
+        </style>
+ 
+        @filamentStyles
+        @vite('resources/css/app.css')
     </head>
     <body class="font-sans antialiased">
         <div class="min-h-screen bg-gray-100">
@@ -20,8 +27,8 @@
 
             <!-- Page Heading -->
             @if (isset($header))
-                <header class="bg-white shadow">
-                    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+                <header class="bg-white shadow sticky top-0">
+                    <div class="max-w-7xl mx-auto py-2 px-4 sm:px-6 lg:px-8">
                         {{ $header }}
                     </div>
                 </header>
@@ -29,8 +36,22 @@
 
             <!-- Page Content -->
             <main>
-                {{ $slot }}
+                <div class="py-12">
+                    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
+                        {{ $slot }}
+                    </div>
+                </div>
             </main>
+
+            @if (isset($footer))
+                <div class="bg-white sticky bottom-0">
+                    <div class="flex w-full m-auto px-4 sm:px-6 lg:px-8 items-center justify-between">
+                        {{ $footer }}
+                    </div>
+                </div>
+            @endif
         </div>
+        @filamentScripts
+        @vite('resources/js/app.js')
     </body>
 </html>

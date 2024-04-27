@@ -7,10 +7,13 @@
     "require": {
         "php": "^8.2",
         "calebporzio/sushi": "^2.5",
+        "filament/tables": "^3.2",
         "laravel/breeze": "^2.0",
         "laravel/framework": "^11.0",
+        "laravel/pulse": "@beta",
         "laravel/tinker": "^2.9",
         "revolution/laravel-google-sheets": "^6.3",
+        "romanlazko/slurp": "^0.0.6",
         "romanlazko/telegram": "^1.0"
     },
     "require-dev": {
@@ -37,7 +40,8 @@
     "scripts": {
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
-            "@php artisan package:discover --ansi"
+            "@php artisan package:discover --ansi",
+            "@php artisan filament:upgrade"
         ],
         "post-update-cmd": [
             "@php artisan vendor:publish --tag=laravel-assets --ansi --force"
