@@ -92,11 +92,11 @@ class AdvertisementLogs extends Component implements HasForms, HasTable
                             'batch_id' => Bus::batch($jobs)->dispatch()->id,
                         ]);
                     })
-                    ->hidden(function () {
-                        $batch = Bus::findBatch($this->advertisement->batch_id ?? '');
+                    // ->hidden(function () {
+                    //     $batch = Bus::findBatch($this->advertisement->batch_id ?? '');
 
-                        return $batch?->pendingJobs > 0;
-                    })
+                    //     return $batch?->pendingJobs > 0;
+                    // })
             ])
             ->heading(function () {
                 $in_progress = $this->advertisement->logs()->where('status', 'in_progress')->count();
