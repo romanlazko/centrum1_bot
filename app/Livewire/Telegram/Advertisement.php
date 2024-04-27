@@ -40,7 +40,8 @@ class Advertisement extends Component implements HasForms, HasTable
                 ImageColumn::make('attachments'),
                 TextColumn::make('name'),
                 TextColumn::make('title')
-                    ->description(fn (ModelsAdvertisement $advertisement) => $advertisement->description),
+                    ->description(fn (ModelsAdvertisement $advertisement) => $advertisement->description)
+                    ->wrap(),
                 ToggleColumn::make('is_active'),
             ])
             ->actions([
