@@ -46,8 +46,13 @@ class DispatchAdvertisementJob implements ShouldQueue
 
             $images = [];
 
-            foreach ($this->advertisement_log->advertisement->attachments ?? [] as $attachment) {
-                $images[] = env('APP_URL')."/storage/".$attachment;
+            if (is_array($this->advertisement_log->advertisement->attachments)) {
+                foreach ($this->advertisement_log->advertisement->attachments ?? [] as $attachment) {
+                    $images[] = env('APP_URL')."/storage/".$attachment;
+                }
+            }
+            else {
+                $images[] = env('APP_URL')."/storage/".$this->advertisement_log->advertisement->attachments;
             }
     
             $bot::sendMessageWithMedia([
