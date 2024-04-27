@@ -76,7 +76,9 @@ class Advertisement extends Component implements HasForms, HasTable
             ->headerActions([
                 CreateAction::make()
                     ->form([
-                        FileUpload::make('attachments'),
+                        FileUpload::make('attachments')
+                            ->multiple()
+                            ->image(),
                         TextInput::make('name'),
                         TextInput::make('title'),
                         Textarea::make('description')
