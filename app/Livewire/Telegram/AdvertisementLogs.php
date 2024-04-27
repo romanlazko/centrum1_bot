@@ -95,7 +95,7 @@ class AdvertisementLogs extends Component implements HasForms, HasTable
                     ->hidden(function () {
                         $batch = Bus::findBatch($this->advertisement->batch_id ?? '');
 
-                        return !$batch?->finished();
+                        return $batch?->finished() ? true : false;
                     })
             ])
             ->heading(function () {
