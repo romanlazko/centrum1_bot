@@ -22,6 +22,7 @@
         @vite('resources/css/app.css')
     </head>
     <body class="font-sans antialiased">
+        <livewire.empty-component />
         <div class="min-h-screen bg-gray-100">
             @include('layouts.navigation')
 
