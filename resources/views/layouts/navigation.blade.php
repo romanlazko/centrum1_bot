@@ -15,10 +15,10 @@
                     <x-nav-link :href="route('pulse')" :active="request()->routeIs('pulse')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('chat.index')" :active="request()->routeIs('chat.index')">
+                    <x-nav-link :href="route('chat.index')" :active="request()->routeIs('chat.*')">
                         {{ __('Chats') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('advertisement.index')" :active="request()->routeIs('advertisement.index')">
+                    <x-nav-link :href="route('advertisement.index')" :active="request()->routeIs('advertisement.*')">
                         {{ __('Advertisement') }}
                     </x-nav-link>
                 </div>
@@ -76,10 +76,10 @@
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('chat.index')" :active="request()->routeIs('chat.index')">
+            <x-responsive-nav-link :href="route('chat.index')" :active="request()->routeIs('chat.*')">
                 {{ __('Chats') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('advertisement.index')" :active="request()->routeIs('advertisement.index')">
+            <x-responsive-nav-link :href="route('advertisement.index')" :active="request()->routeIs('advertisement.*')">
                 {{ __('Advertisement') }}
             </x-responsive-nav-link>
         </div>
