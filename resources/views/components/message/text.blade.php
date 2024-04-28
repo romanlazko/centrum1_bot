@@ -1,5 +1,5 @@
 @if ($message->callback_query?->data ?? $message->text ?? $message->caption )
-    <div {{ $attributes->merge(['class' => 'shadow rounded-lg p-3 ']) }}>
+    <div {{ $attributes->merge(['class' => 'shadow rounded-lg p-3']) }}>
         <p class="text-sm font-medium text-gray-500">
             {{ $message->callback_query?->user?->first_name ?? $message->user?->first_name}} {{ $message->callback_query?->user?->last_name ?? $message->user?->last_name}} 
         </p>
