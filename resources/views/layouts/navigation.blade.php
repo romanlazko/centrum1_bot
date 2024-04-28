@@ -76,6 +76,12 @@
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('chat.index')" :active="request()->routeIs('chat.index')">
+                {{ __('Chats') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('advertisement.index')" :active="request()->routeIs('advertisement.index')">
+                {{ __('Advertisement') }}
+            </x-responsive-nav-link>
         </div>
 
         <!-- Responsive Settings Options -->

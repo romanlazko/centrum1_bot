@@ -35,7 +35,7 @@ class DispatchAdvertisementJob implements ShouldQueue
      */
     public function handle(): void
     {
-        if ($this->advertisement_log->advertisement->is_active) {
+        if ($this->advertisement_log->advertisement->is_active AND $this->advertisement_log->status == 'in_progress') {
 
             $bot = new Bot(env('TELEGRAM_BOT_TOKEN', TelegramBot::first()->token));
 
