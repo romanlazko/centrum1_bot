@@ -38,10 +38,10 @@ class Advertisement extends Component implements HasForms, HasTable
             ->query(ModelsAdvertisement::query())
             ->columns([
                 ImageColumn::make('attachments'),
-                TextColumn::make('name'),
                 TextColumn::make('title')
                     ->description(fn (ModelsAdvertisement $advertisement) => $advertisement->description)
-                    ->wrap(),
+                    ->wrap()
+                    ->url(fn (ModelsAdvertisement $advertisement) => route('advertisement.logs', $advertisement->id)),
                 ToggleColumn::make('is_active'),
             ])
             ->actions([
@@ -51,7 +51,6 @@ class Advertisement extends Component implements HasForms, HasTable
                         FileUpload::make('attachments')
                             ->multiple()
                             ->image(),
-                        TextInput::make('name'),
                         TextInput::make('title'),
                         Textarea::make('description')
                     ])
@@ -80,7 +79,6 @@ class Advertisement extends Component implements HasForms, HasTable
                         FileUpload::make('attachments')
                             ->multiple()
                             ->image(),
-                        TextInput::make('name'),
                         TextInput::make('title'),
                         Textarea::make('description')
                     ])
