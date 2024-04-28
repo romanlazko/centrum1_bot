@@ -57,6 +57,7 @@ class AdvertisementLogs extends Component implements HasForms, HasTable
                             'in_progress' => 'warning',
                             'success' => 'success',
                             'failed' => 'danger',
+                            'canceled' => 'danger',
                             default => 'secondary',
                         };
                     })
@@ -73,6 +74,14 @@ class AdvertisementLogs extends Component implements HasForms, HasTable
                         dispatch(new DispatchAdvertisementJob($advertisement_log->id));
                     })
                     ->hidden(fn (AdvertisementLog $advertisement_log) => $advertisement_log->status == 'in_progress'),
+                Action::make('cancel')
+                    ->color('danger')
+                    ->action(function (AdvertisementLog $advertisement_log) {
+                        $advertisement_log->update([
+                            'status' => 'canceled'
+                        ]);
+                    })
+                    ->visible(fn (AdvertisementLog $advertisement_log) => $advertisement_log->status == 'in_progress'),
             ])
             ->headerActions([
                 Action::make('Send everyone')
