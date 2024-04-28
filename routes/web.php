@@ -6,6 +6,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TelegramChatController;
 use App\Livewire\Telegram\Advertisement;
 use App\Livewire\Telegram\AdvertisementLogs;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -32,4 +33,9 @@ Route::middleware('auth')->group(function () {
         Route::get('/{advertisement}', AdvertisementLogs::class)->name('advertisement.logs');
     }); 
 });
+
+Route::get('/cron', function () {
+    Artisan::call('queue:work --max-time=1800 --stop-when-empty');
+})->name('cron');
+
 require __DIR__.'/auth.php';
