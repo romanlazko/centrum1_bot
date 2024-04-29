@@ -33,7 +33,7 @@ class EndDate extends Command
             [array($end_date->clone()->addMonth(11)->subDay()->format('d.m.Y'), SaveEndDate::$command, $end_date->clone()->addMonth(11)->subDay()->format('d.m.Y'))],
             [array($end_date->clone()->addMonth(12)->subDay()->format('d.m.Y'), SaveEndDate::$command, $end_date->clone()->addMonth(12)->subDay()->format('d.m.Y'))],
             [array(MenuCommand::getTitle('ru'), MenuCommand::$command, '')],
-        ]);
+        ], 'temp');
 
         $text = implode("\n", [
             "Напишите пожалуйста дату *ДО какого числа вам нужна новая страховка*, в формате ДД.ММ.ГГГГ:"
