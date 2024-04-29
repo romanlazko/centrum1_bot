@@ -9,12 +9,12 @@ use Romanlazko\Telegram\App\Entities\Update;
 
 class DefaultCommand extends Command
 {
-    public static $command = 'default';
+    public static $command = '/default';
 
     public static $title = [
     ];
 
-    public static $usage = ['default'];
+    public static $usage = ['/default', 'default'];
 
     protected $enabled = true;
 
