@@ -23,14 +23,11 @@ class HelpCommand extends Command
     public function execute(Update $updates): Response
     {
         $buttons = BotApi::inlineKeyboard([
-            [array(MenuCommand::getTitle('en'), MenuCommand::$command, '')],
+            [array(MenuCommand::getTitle('ru'), MenuCommand::$command, '')],
         ]);
 
         $text = implode("\n", [
-            "Hi 👋",
-            "Here is a list of available commands:"."\n",
-            "/menu - 🏠 Menu,",
-            "/start - 🏁 Start bot." 
+            "Наши контакты *@centr1_cz*" 
         ]);
 
         $data = [

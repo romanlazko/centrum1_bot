@@ -2,6 +2,7 @@
 
 namespace App\Bots\Centrum1_bot\Commands\UserCommands\CalculateInsurance;
 
+use Carbon\Carbon;
 use Romanlazko\Telegram\App\Commands\Command;
 use Romanlazko\Telegram\App\Entities\Response;
 use Romanlazko\Telegram\App\Entities\Update;
@@ -25,6 +26,13 @@ class AwaitEndDate extends Command
 
         if (iconv_strlen($text) > 31){
             $this->handleError("*Слишком много символов*");
+            return $this->bot->executeCommand(EndDate::$command);
+        }
+
+        $start_date = Carbon::parse($this->getConversation()->notes['start_date']);
+
+        if ($start_date > Carbon::parse($text)) {
+            $this->handleError("*Дата окончания не может быть раньше даты начала*");
             return $this->bot->executeCommand(EndDate::$command);
         }
 

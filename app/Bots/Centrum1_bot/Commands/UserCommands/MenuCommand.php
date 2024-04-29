@@ -26,6 +26,7 @@ class MenuCommand extends Command
     {
         $buttons = BotApi::inlineKeyboard([
             [array("ПОДОБРАТЬ СТРАХОВКУ", CalculateInsurance::$command, '')],
+            [array("Контакты", HelpCommand::$command, '')],
         ]);
 
         $text = implode("\n", [
