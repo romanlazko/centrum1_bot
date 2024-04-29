@@ -2,6 +2,7 @@
 
 namespace App\Bots\Centrum1_bot\Commands\UserCommands\CalculateInsurance;
 
+use App\Bots\Centrum1_bot\Commands\UserCommands\ContactManager;
 use App\Bots\Centrum1_bot\Commands\UserCommands\MenuCommand;
 use Carbon\Carbon;
 use Romanlazko\Telegram\App\BotApi;
@@ -29,7 +30,7 @@ class StartDate extends Command
         $start_date = Carbon::create(now()->year, 9, 1);
 
         $buttons = BotApi::inlineKeyboard([
-            [array("СВЯЗАТЬСЯ С МЕНЕДЖЕРОМ", MenuCommand::$command, '')],
+            [array(ContactManager::getTitle('ru'), ContactManager::$command, '')],
             // [array($start_date->format('d.m.Y'), SaveStartDate::$command, $start_date->format('d.m.Y'))],
             [array(MenuCommand::getTitle('ru'), MenuCommand::$command, '')],
         ], 'temp');
