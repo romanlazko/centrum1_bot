@@ -53,6 +53,7 @@ class Advertisement extends Component implements HasForms, HasTable
                             ->image(),
                         TextInput::make('title'),
                         Textarea::make('description')
+                            ->autosize()
                     ])
                     ->slideOver()
                     ->closeModalByClickingAway(false),
@@ -81,6 +82,7 @@ class Advertisement extends Component implements HasForms, HasTable
                             ->image(),
                         TextInput::make('title'),
                         Textarea::make('description')
+                            ->autosize()
                     ])
                     ->slideOver()
                     ->closeModalByClickingAway(false),
