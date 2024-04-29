@@ -53,6 +53,7 @@ class Advertisement extends Component implements HasForms, HasTable
                             ->image(),
                         TextInput::make('title'),
                         Textarea::make('description')
+                            ->helperText('Текст нужно писать в формате Markdown: жирный - * *, курсив - _ _. Ссылки должны быть в виде *[text](url)*. Логины в телеграм должны быть в виде *@login*.')
                             ->autosize()
                     ])
                     ->slideOver()
@@ -82,6 +83,7 @@ class Advertisement extends Component implements HasForms, HasTable
                             ->image(),
                         TextInput::make('title'),
                         Textarea::make('description')
+                            ->helperText('Текст нужно писать в формате Markdown: жирный - * *, курсив - _ _. Ссылки должны быть в виде *[text](url)*. Логины в телеграм должны быть в виде *@login*.')
                             ->autosize()
                     ])
                     ->slideOver()
