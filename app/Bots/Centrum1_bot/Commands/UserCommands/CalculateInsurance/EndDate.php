@@ -30,8 +30,8 @@ class EndDate extends Command
 
         $buttons = BotApi::inlineKeyboard([
             [array("СВЯЗАТЬСЯ С МЕНЕДЖЕРОМ", MenuCommand::$command, '')],
-            [array($end_date->clone()->addMonth(11)->subDay()->format('d.m.Y'), SaveEndDate::$command, $end_date->clone()->addMonth(11)->subDay()->format('d.m.Y'))],
-            [array($end_date->clone()->addMonth(12)->subDay()->format('d.m.Y'), SaveEndDate::$command, $end_date->clone()->addMonth(12)->subDay()->format('d.m.Y'))],
+            // [array($end_date->clone()->addMonth(11)->subDay()->format('d.m.Y'), SaveEndDate::$command, $end_date->clone()->addMonth(11)->subDay()->format('d.m.Y'))],
+            // [array($end_date->clone()->addMonth(12)->subDay()->format('d.m.Y'), SaveEndDate::$command, $end_date->clone()->addMonth(12)->subDay()->format('d.m.Y'))],
             [array(MenuCommand::getTitle('ru'), MenuCommand::$command, '')],
         ], 'temp');
 

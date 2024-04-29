@@ -30,7 +30,7 @@ class StartDate extends Command
 
         $buttons = BotApi::inlineKeyboard([
             [array("СВЯЗАТЬСЯ С МЕНЕДЖЕРОМ", MenuCommand::$command, '')],
-            [array($start_date->format('d.m.Y'), SaveStartDate::$command, $start_date->format('d.m.Y'))],
+            // [array($start_date->format('d.m.Y'), SaveStartDate::$command, $start_date->format('d.m.Y'))],
             [array(MenuCommand::getTitle('ru'), MenuCommand::$command, '')],
         ], 'temp');
 
