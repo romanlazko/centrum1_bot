@@ -15,6 +15,7 @@ class Config
                 'criterion'         => null,
                 'current_insurance' => null,
                 'name'              => null,
+                'temp'              => null,
             ],
             'lang'              => 'ru',
             'admin_ids'         => [

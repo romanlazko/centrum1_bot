@@ -3,6 +3,7 @@
 namespace App\Bots\Centrum1_bot\Commands\UserCommands\CalculateInsurance;
 
 use App\Bots\Centrum1_bot\Commands\UserCommands\MenuCommand;
+use Carbon\Carbon;
 use Romanlazko\Telegram\App\BotApi;
 use Romanlazko\Telegram\App\Commands\Command;
 use Romanlazko\Telegram\App\Entities\Response;
@@ -25,8 +26,12 @@ class EndDate extends Command
     {
         $updates->getFrom()->setExpectation(AwaitEndDate::$expectation);
 
+        $end_date = Carbon::parse($this->getConversation()->notes['start_date']);
+
         $buttons = BotApi::inlineKeyboard([
             [array("СВЯЗАТЬСЯ С МЕНЕДЖЕРОМ", MenuCommand::$command, '')],
+            [array($end_date->addMonth(11)->format('d.m.Y'), SaveEndDate::$command, $end_date->addMonth(11)->format('d.m.Y'))],
+            [array($end_date->addMonth(12)->format('d.m.Y'), SaveEndDate::$command, $end_date->addMonth(12)->format('d.m.Y'))],
             [array(MenuCommand::getTitle('ru'), MenuCommand::$command, '')],
         ]);
 

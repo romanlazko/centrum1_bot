@@ -3,6 +3,7 @@
 namespace App\Bots\Centrum1_bot\Commands\UserCommands\CalculateInsurance;
 
 use App\Bots\Centrum1_bot\Commands\UserCommands\MenuCommand;
+use Carbon\Carbon;
 use Romanlazko\Telegram\App\BotApi;
 use Romanlazko\Telegram\App\Commands\Command;
 use Romanlazko\Telegram\App\Entities\Response;
@@ -25,10 +26,13 @@ class StartDate extends Command
     {
         $updates->getFrom()->setExpectation(AwaitStartDate::$expectation);
 
+        $start_date = Carbon::create(now()->year, 9, 1);
+
         $buttons = BotApi::inlineKeyboard([
             [array("СВЯЗАТЬСЯ С МЕНЕДЖЕРОМ", MenuCommand::$command, '')],
+            [array($start_date->format('d.m.Y'), SaveStartDate::$command, $start_date->format('d.m.Y'))],
             [array(MenuCommand::getTitle('ru'), MenuCommand::$command, '')],
-        ]);
+        ], 'temp');
 
         $text = implode("\n", [
             "Теперь давайте посчитаем срок, на который вам нужна страховка."."\n",

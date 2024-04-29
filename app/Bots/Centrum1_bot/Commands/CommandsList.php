@@ -44,9 +44,11 @@ class CommandsList extends DefaultCommandsList
             UserCommands\CalculateInsurance\BirthCommand::class,
             UserCommands\CalculateInsurance\StartDate::class,
             UserCommands\CalculateInsurance\AwaitStartDate::class,
+            UserCommands\CalculateInsurance\SaveStartDate::class,
 
             UserCommands\CalculateInsurance\EndDate::class,
             UserCommands\CalculateInsurance\AwaitEndDate::class,
+            UserCommands\CalculateInsurance\SaveEndDate::class,
 
             UserCommands\CalculateInsurance\Shengen::class,
 
