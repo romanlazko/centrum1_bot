@@ -6,6 +6,7 @@ use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
 use Filament\Tables\Actions\DeleteAction;
 use Filament\Tables\Columns\ImageColumn;
+use Filament\Tables\Columns\SelectColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Concerns\InteractsWithTable;
 use Filament\Tables\Contracts\HasTable;
@@ -43,8 +44,11 @@ class Index extends Component implements HasForms, HasTable
                     })
                     ->description(fn (TelegramChat $telegram_chat) => $telegram_chat->username)
                     ->url(fn (TelegramChat $telegram_chat): string => route('chat.show', $telegram_chat)),
-                TextColumn::make('role')
-                    ->badge(),
+                SelectColumn::make('role')
+                    ->options([
+                        'admin' => 'Admin',
+                        'user' => 'User',
+                    ]),
                 TextColumn::make('messages.text')->limit(50)
             ])
             ->actions([
