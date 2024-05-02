@@ -53,7 +53,8 @@ class Index extends Component implements HasForms, HasTable
             ])
             ->actions([
                 DeleteAction::make(),
-            ]);
+            ])
+            ->deferLoading();
     }
     public function render()
     {
