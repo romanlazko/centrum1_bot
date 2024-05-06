@@ -24,7 +24,7 @@ class InsuranceInfo extends Command
 
     public function execute(Update $updates): Response
     {
-        $name = $updates->getInlineData()->getName();
+        $insurance_name = $updates->getInlineData()->getInsuranceName();
 
         $buttons = BotApi::inlineKeyboardWithLink(
             array('text' => "ОФОРМИТЬ СТРАХОВКУ", 'web_app' => ['url' => 'https://forms.amocrm.ru/rvcmwdc']),
@@ -35,7 +35,7 @@ class InsuranceInfo extends Command
         );
 
         $data = [
-            'text'          =>  $this->getInsuranceInfo($name),
+            'text'          =>  $this->getInsuranceInfo($insurance_name),
             'chat_id'       =>  $updates->getChat()->getId(),
             'reply_markup'  =>  $buttons,
             'parse_mode'    =>  'Markdown',
@@ -45,9 +45,9 @@ class InsuranceInfo extends Command
         return BotApi::returnInline($data);
     }
 
-    public function getInsuranceInfo($name)
+    public function getInsuranceInfo($insurance_name)
     {
-        return match ($name) {
+        return match ($insurance_name) {
             'Maxima' => implode("\n", [
                 "*Maxima*"."\n",
                 "Лучшее сочетание стоимость/качество и условия для разных возрастных групп."."\n",

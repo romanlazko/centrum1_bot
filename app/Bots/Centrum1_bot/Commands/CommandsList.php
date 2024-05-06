@@ -14,6 +14,8 @@ class CommandsList extends DefaultCommandsList
             AdminCommands\GetReferalCommand::class,
         ],
         'user'      => [
+            
+            
             UserCommands\StartCommand::class,
             UserCommands\MenuCommand::class,
             UserCommands\HelpCommand::class,
@@ -55,6 +57,28 @@ class CommandsList extends DefaultCommandsList
             UserCommands\CalculateInsurance\Type::class,
             UserCommands\CalculateInsurance\Calculate::class,
             UserCommands\CalculateInsurance\InsuranceInfo::class,
+
+            // Questionnaire
+            UserCommands\Questionnaire\Answer::class,
+            UserCommands\Questionnaire\Question::class,
+
+            // Profile
+            UserCommands\Profile\Profile::class,
+            UserCommands\Profile\FirstName::class,
+            UserCommands\Profile\AwaitFirstName::class,
+
+            UserCommands\Profile\LastName::class,
+            UserCommands\Profile\AwaitLastName::class,
+
+            UserCommands\Profile\Phone::class,
+            UserCommands\Profile\AwaitPhone::class,
+
+            // Calculate 
+            UserCommands\CalculateBank\CalculateAmount::class,
+            UserCommands\CalculateBank\EndOfVisa::class,
+            UserCommands\CalculateBank\Applying::class,
+            UserCommands\CalculateBank\Deadline::class,
+            UserCommands\CalculateBank\Calculate::class,
         ],
         
     ];

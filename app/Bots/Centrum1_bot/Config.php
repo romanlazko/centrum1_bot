@@ -2,6 +2,7 @@
 
 namespace App\Bots\Centrum1_bot;
 
+use Carbon\Carbon;
 
 class Config
 {
@@ -9,17 +10,24 @@ class Config
     {
         return [
             'inline_data'       => [
+                'question_button_id'=> null,
                 'type'              => null,
+                'end_of_visa'       => null,
+                'applying'          => 12,
+                'deadline'          => null,
                 'shengen'           => null,
-                'count_of_month'    => 12,
                 'criterion'         => null,
                 'current_insurance' => null,
-                'name'              => null,
+                'insurance_name'    => null,
+                
                 'temp'              => null,
             ],
             'lang'              => 'ru',
             'admin_ids'         => [
             ],
+            'casts'             => [
+                'amount' => 3130,
+            ]
         ];
     }
 }

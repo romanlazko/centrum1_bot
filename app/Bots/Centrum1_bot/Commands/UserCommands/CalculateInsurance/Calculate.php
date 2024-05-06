@@ -2,15 +2,13 @@
 
 namespace App\Bots\Centrum1_bot\Commands\UserCommands\CalculateInsurance;
 
-use App\Bots\Centrum1_bot\Commands\UserCommands\CalculateInsurance\BetterQuality\CalculateBetterQuality;
-use App\Bots\Centrum1_bot\Commands\UserCommands\CalculateInsurance\ContinuingTreatment\CalculateContinuingTreatment;
-use App\Bots\Centrum1_bot\Commands\UserCommands\CalculateInsurance\LowestCost\CalculateLowestCost;
-use App\Bots\Centrum1_bot\Commands\UserCommands\CalculateInsurance\LowestCost\LowestCost;
-use App\Bots\Centrum1_bot\Commands\UserCommands\CalculateInsurance\PriceAndQuality\CalculatePriceAndQuality;
 use App\Bots\Centrum1_bot\Commands\UserCommands\ContactManager;
 use App\Bots\Centrum1_bot\Commands\UserCommands\MenuCommand;
+use App\Jobs\SendQuestionnaire;
+use App\Jobs\SendQuestionnaireAfter3Hours;
 use App\Models\Colonnade;
 use App\Models\Maxima;
+use App\Models\Questionnaire\Questionnaire;
 use App\Models\Slavia;
 use App\Models\SV;
 use App\Models\VZP;
@@ -67,7 +65,7 @@ class Calculate extends Command
                 [array(ContactManager::getTitle('ru'), ContactManager::$command, '')],
                 [array(MenuCommand::getTitle('ru'), MenuCommand::$command, '')],
             ],
-            'name'
+            'insurance_name'
         );
 
         $data = [
@@ -77,6 +75,10 @@ class Calculate extends Command
             'parse_mode'    =>  'Markdown',
             'message_id'    =>  $updates->getCallbackQuery()?->getMessage()->getMessageId(),
         ];
+
+        $questionnaire = Questionnaire::where('is_active', true)->first();
+
+        SendQuestionnaire::dispatch($questionnaire?->id, $updates->getChat()->getId())->delay(now()->addMinutes(1));
 
         return BotApi::returnInline($data);
     }

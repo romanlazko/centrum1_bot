@@ -2,8 +2,12 @@
 
 namespace App\Bots\Centrum1_bot\Commands\UserCommands;
 
+use App\Bots\Centrum1_bot\Commands\UserCommands\CalculateBank\CalculateAmount;
 use App\Bots\Centrum1_bot\Commands\UserCommands\CalculateInsurance\BirthCommand;
 use App\Bots\Centrum1_bot\Commands\UserCommands\CalculateInsurance\CalculateInsurance;
+use App\Jobs\SendQuestionnaire;
+use App\Jobs\SendQuestionnaireAfter3Hours;
+use App\Models\Questionnaire\Questionnaire;
 use Romanlazko\Telegram\App\BotApi;
 use Romanlazko\Telegram\App\Commands\Command;
 use Romanlazko\Telegram\App\Entities\Response;
@@ -24,8 +28,12 @@ class MenuCommand extends Command
 
     public function execute(Update $updates): Response
     {
+        $this->getConversation()->clear();
+        $updates->getInlineData()->unset();
+
         $buttons = BotApi::inlineKeyboard([
             [array("ПОДОБРАТЬ СТРАХОВКУ", CalculateInsurance::$command, '')],
+            [array(CalculateAmount::getTitle('ru'), CalculateAmount::$command, '')],
             [array("Контакты", HelpCommand::$command, '')],
         ]);
 
@@ -40,6 +48,10 @@ class MenuCommand extends Command
             'parse_mode'    =>  'Markdown',
             'message_id'    =>  $updates->getCallbackQuery()?->getMessage()->getMessageId(),
         ];
+
+        // $questionnaire = Questionnaire::where('is_active', true)->first();
+
+        // SendQuestionnaire::dispatch($questionnaire?->id, $updates->getChat()->getId());
 
         return BotApi::returnInline($data);
     }

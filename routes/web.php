@@ -4,6 +4,8 @@ use App\Http\Controllers\AdvertisementController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TelegramChatController;
+use App\Livewire\Answers;
+use App\Livewire\Questionnaires;
 use App\Livewire\Telegram\Advertisement;
 use App\Livewire\Telegram\AdvertisementLogs;
 use Illuminate\Support\Facades\Artisan;
@@ -31,6 +33,11 @@ Route::middleware('auth')->group(function () {
     Route::prefix('advertisement')->group(function () {
         Route::get('/', Advertisement::class)->name('advertisement.index');
         Route::get('/{advertisement}', AdvertisementLogs::class)->name('advertisement.logs');
+    }); 
+
+    Route::prefix('questionnaire')->group(function () {
+        Route::get('/', Questionnaires::class)->name('questionnaire.index');
+        Route::get('/{questionnaire}', Answers::class)->name('questionnaire.show');
     }); 
 });
 
