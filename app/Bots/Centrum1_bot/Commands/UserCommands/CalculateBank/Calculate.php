@@ -5,6 +5,7 @@ namespace App\Bots\Centrum1_bot\Commands\UserCommands\CalculateBank;
 use App\Bots\Centrum1_bot\Commands\UserCommands\MenuCommand;
 use App\Bots\Centrum1_bot\Config;
 use App\Jobs\SendQuestionnaire;
+use App\Models\Questionnaire\Questionnaire;
 use Carbon\Carbon;
 use Romanlazko\Telegram\App\BotApi;
 use Romanlazko\Telegram\App\Commands\Command;
@@ -54,17 +55,17 @@ class Calculate extends Command
 
         try {
 
-            SendQuestionnaire::dispatch(4, $updates->getChat()->getId())->delay(now()->addMinutes(1));
+            $questionnaire = Questionnaire::where('is_active', true)->where('service', 'bank')->first();
 
-            BotApi::returnInline([
+            SendQuestionnaire::dispatch($questionnaire?->id, $updates->getChat()->getId())->delay(now()->addMinutes(1));
+
+            return BotApi::returnInline([
                 'text'          =>  $text,
                 'chat_id'       =>  $updates->getChat()->getId(),
                 'reply_markup'  =>  $buttons,
                 'parse_mode'    =>  'Markdown',
                 'message_id'    =>  $updates->getCallbackQuery()?->getMessage()->getMessageId(),
             ]);
-
-            return $this->bot->executeCommand(AdvertisementCommand::$command);
         }
         catch(TelegramException $e){
             return BotApi::answerCallbackQuery([

@@ -48,6 +48,13 @@ class Answer extends Command
             'answers' => $answers,
         ]);
 
+        $tags = is_array(json_decode($telegram_chat->tags, true)) ? json_decode($telegram_chat->tags, true) : [];
+
+        array_push($tags, $questionButton->value);
+
+        $telegram_chat->update([
+            'tags' => json_encode($tags),
+        ]);
 
         return $this->bot->executeCommand(Question::$command);
     }

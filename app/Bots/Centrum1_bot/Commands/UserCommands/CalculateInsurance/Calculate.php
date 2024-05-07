@@ -33,6 +33,13 @@ class Calculate extends Command
 
     public function execute(Update $updates): Response
     {
+        BotApi::returnInline([
+            'chat_id' => $updates->getChat()->getId(),
+            'text' => '*Подождите, идет поиск...*',
+            'parse_mode' => 'Markdown',
+            'message_id' => $updates->getCallbackQuery()?->getMessage()->getMessageId(),
+        ]);
+
         $start_date = Carbon::parse($this->getConversation()->notes['start_date']);
         $end_date = Carbon::parse($this->getConversation()->notes['end_date']);
         $count_of_month = ceil($start_date->diffInMonths($end_date));
@@ -76,7 +83,7 @@ class Calculate extends Command
             'message_id'    =>  $updates->getCallbackQuery()?->getMessage()->getMessageId(),
         ];
 
-        $questionnaire = Questionnaire::where('is_active', true)->first();
+        $questionnaire = Questionnaire::where('is_active', true)->where('service', 'insurance')->first();
 
         SendQuestionnaire::dispatch($questionnaire?->id, $updates->getChat()->getId())->delay(now()->addMinutes(1));
 

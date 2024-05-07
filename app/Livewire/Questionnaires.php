@@ -44,6 +44,7 @@ class Questionnaires extends Component implements HasForms, HasTable
             ->columns([
                 TextColumn::make('name')
                     ->url(fn (Questionnaire $questionnaire) => route('questionnaire.show', $questionnaire->id)),
+                TextColumn::make('service'),
                 TextColumn::make('answers_count')
                     ->state(fn (Questionnaire $questionnaire) => $questionnaire->answers()->count()),
                 ToggleColumn::make('is_active'),
@@ -53,6 +54,13 @@ class Questionnaires extends Component implements HasForms, HasTable
                 EditAction::make()
                     ->form([
                         TextInput::make('name'),
+                        Select::make('service')
+                            ->label('Услуга')
+                            ->helperText('После какого подсчета будет отправляться опрос')
+                            ->options([
+                                'insurance' => 'Страхование',
+                                'bank' => 'Банк',
+                            ]),
                         Repeater::make('questions')
                             ->relationship('questions')
                             ->schema([
@@ -70,18 +78,12 @@ class Questionnaires extends Component implements HasForms, HasTable
                                         Select::make('type')
                                             ->options([
                                                 'button' => 'Кнопка',
-                                                // 'link' => 'Ссылка',
-                                                // 'webapp' => 'Веб-приложение',
                                             ]),
                                         TextInput::make('text')
                                             ->label('Текст кнопки'),
                                         TextInput::make('value')
-                                            ->label('Значение кнопки'),
-                                        // Select::make('command')
-                                        //     ->label('Команда')
-                                        //     ->options([
-                                        //         'profile' => 'Собрать данные профиля',
-                                        //     ]),
+                                            ->label('Тэг')
+                                            ->helperText('Тэг будет присвоен пользователю при нажатии'),
                                     ])
                                     ->columns(3)
                             ]),
@@ -93,9 +95,13 @@ class Questionnaires extends Component implements HasForms, HasTable
             ->headerActions([
                 CreateAction::make()
                     ->form([
-                        Section::make()
-                            ->schema([
-                                TextInput::make('name'),
+                        TextInput::make('name'),
+                        Select::make('service')
+                            ->label('Услуга')
+                            ->helperText('После какого подсчета будет отправляться опрос')
+                            ->options([
+                                'insurance' => 'Страхование',
+                                'bank' => 'Банк',
                             ]),
                         Repeater::make('questions')
                             ->relationship('questions')
@@ -109,17 +115,17 @@ class Questionnaires extends Component implements HasForms, HasTable
                                     ->autosize()
                                     ->required(),
                                 Repeater::make('buttons')
-                                    ->label('Кнопки')
                                     ->relationship('question_buttons')
                                     ->schema([
                                         Select::make('type')
                                             ->options([
                                                 'button' => 'Кнопка',
-                                                // 'link' => 'Ссылка',
-                                                // 'webapp' => 'Веб-приложение',
                                             ]),
-                                        TextInput::make('text'),
-                                        TextInput::make('value'),
+                                        TextInput::make('text')
+                                            ->label('Текст кнопки'),
+                                        TextInput::make('value')
+                                            ->label('Тэг')
+                                            ->helperText('Тэг будет присвоен пользователю при нажатии'),
                                     ])
                                     ->columns(3)
                             ]),
