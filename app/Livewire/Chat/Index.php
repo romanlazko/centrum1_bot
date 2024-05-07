@@ -55,7 +55,7 @@ class Index extends Component implements HasForms, HasTable
         // ->toArray();
 
         return $table
-            ->query(CustomTelegramChat::with('tags:name'))
+            ->query(CustomTelegramChat::with('tags:name')->orderByDesc('updated_at'))
             ->columns([
                 ImageColumn::make('avatar')
                     ->defaultImageUrl(fn (CustomTelegramChat $telegram_chat) => (new Bot($this->telegram_bot->token))::getPhoto(['file_id' => $telegram_chat->photo]))
@@ -79,6 +79,10 @@ class Index extends Component implements HasForms, HasTable
                 TextColumn::make('tags.name')
                     ->wrap(false)
                     ->badge(),
+                TextColumn::make('updated_at')
+                    ->sortable()
+                    ->label('Last activity')
+                    ->dateTime()
             ])
             ->actions([
                 // EditAction::make()
