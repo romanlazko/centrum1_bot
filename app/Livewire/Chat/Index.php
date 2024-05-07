@@ -5,8 +5,11 @@ namespace App\Livewire\Chat;
 use App\Jobs\SendAdvertisementJob;
 use App\Jobs\SendQuestionnaire;
 use App\Models\Advertisement;
+use App\Models\CustomTelegramChat;
 use App\Models\Questionnaire\QuestionButton;
 use App\Models\Questionnaire\Questionnaire;
+use App\Models\Tag;
+use App\Models\TelegramChatTag;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TagsInput;
 use Filament\Forms\Concerns\InteractsWithForms;
@@ -52,46 +55,47 @@ class Index extends Component implements HasForms, HasTable
         // ->toArray();
 
         return $table
-            ->query($this->telegram_bot->chats()->with('messages', function ($query) {
-                return $query->latest()->limit(1);
-            })->getQuery()->orderBy('updated_at'))
+            ->query(CustomTelegramChat::with('tags:name'))
             ->columns([
                 ImageColumn::make('avatar')
-                    ->defaultImageUrl(fn (TelegramChat $telegram_chat) => (new Bot($this->telegram_bot->token))::getPhoto(['file_id' => $telegram_chat->photo]))
+                    ->defaultImageUrl(fn (CustomTelegramChat $telegram_chat) => (new Bot($this->telegram_bot->token))::getPhoto(['file_id' => $telegram_chat->photo]))
                     ->circular(),
                 TextColumn::make('name')
                     ->searchable(['first_name', 'last_name'])
-                    ->state(function (TelegramChat $telegram_chat) {
+                    ->state(function (CustomTelegramChat $telegram_chat) {
                         return "$telegram_chat->first_name $telegram_chat->last_name";
                     })
-                    ->description(fn (TelegramChat $telegram_chat) => $telegram_chat->username)
-                    ->url(fn (TelegramChat $telegram_chat): string => route('chat.show', $telegram_chat)),
+                    ->description(fn (CustomTelegramChat $telegram_chat) => $telegram_chat->username)
+                    ->url(fn (CustomTelegramChat $telegram_chat): string => route('chat.show', $telegram_chat)),
                 SelectColumn::make('role')
                     ->options([
                         'admin' => 'Admin',
                         'user' => 'User',
                     ]),
-                TextColumn::make('messages.text')->limit(50),
-                TextColumn::make('tags')
-                    ->state(fn (TelegramChat $telegram_chat) => json_decode($telegram_chat->tags))
+                TextColumn::make('latest_message')
+                    ->state(fn (CustomTelegramChat $telegram_chat) => $telegram_chat->messages()->latest()->first()->text)
+                    ->limit(50)
+                    ->wrap(),
+                TextColumn::make('tags.name')
+                    ->wrap(false)
                     ->badge(),
             ])
             ->actions([
-                EditAction::make()
-                    ->form([
-                        TagsInput::make('tags')
-                            ->afterStateHydrated(function (TagsInput $component, string $state) {
-                                $component->state(json_decode($state));
-                            })
-                            ->dehydrateStateUsing(fn ($state) => json_encode($state))
-                            ->required(),
-                    ]),
+                // EditAction::make()
+                //     ->form([
+                //         TagsInput::make('tags')
+                //             ->afterStateHydrated(function (TagsInput $component, string $state) {
+                //                 $component->state(json_decode($state));
+                //             })
+                //             ->dehydrateStateUsing(fn ($state) => json_encode($state))
+                //             ->required(),
+                //     ]),
             ])
             ->filters([
                 SelectFilter::make('tags')
+                    ->relationship('tags', 'name')
                     ->label('Tags')
-                    ->options(fn () => QuestionButton::all()->pluck('value', 'value'))
-                    ->query(fn ($query, array $data) => $query->when($data['value'] ?? null, fn ($query) => $query->whereJsonContains('tags', $data['value'])))
+                    ->options(fn () => Tag::all()->pluck('name', 'id'))
             ])
             ->bulkActions([
                 BulkAction::make('send_questionnaire')

@@ -7,8 +7,10 @@ use App\Bots\Centrum1_bot\Commands\UserCommands\CalculateInsurance\ContinuingTre
 use App\Bots\Centrum1_bot\Commands\UserCommands\CalculateInsurance\LowestCost\LowestCost;
 use App\Bots\Centrum1_bot\Commands\UserCommands\CalculateInsurance\PriceAndQuality\PriceAndQuality;
 use App\Bots\Centrum1_bot\Commands\UserCommands\MenuCommand;
+use App\Events\ChatStartCalculatingInsurance;
 use Romanlazko\Telegram\App\BotApi;
 use Romanlazko\Telegram\App\Commands\Command;
+use Romanlazko\Telegram\App\DB;
 use Romanlazko\Telegram\App\Entities\Response;
 use Romanlazko\Telegram\App\Entities\Update;
 
@@ -42,6 +44,10 @@ class CalculateInsurance extends Command
             
             "Мне нужна⬇"
         ]);
+
+        $telegram_chat = DB::getChat($updates->getChat()->getId());
+
+        event(new ChatStartCalculatingInsurance($telegram_chat->id));
 
         $data = [
             'text'          =>  $text,

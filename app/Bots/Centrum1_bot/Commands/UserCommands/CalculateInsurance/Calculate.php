@@ -4,17 +4,16 @@ namespace App\Bots\Centrum1_bot\Commands\UserCommands\CalculateInsurance;
 
 use App\Bots\Centrum1_bot\Commands\UserCommands\ContactManager;
 use App\Bots\Centrum1_bot\Commands\UserCommands\MenuCommand;
-use App\Jobs\SendQuestionnaire;
-use App\Jobs\SendQuestionnaireAfter3Hours;
+use App\Events\ChatFinishCalculatingInsurance;
 use App\Models\Colonnade;
 use App\Models\Maxima;
-use App\Models\Questionnaire\Questionnaire;
 use App\Models\Slavia;
 use App\Models\SV;
 use App\Models\VZP;
 use Carbon\Carbon;
 use Romanlazko\Telegram\App\BotApi;
 use Romanlazko\Telegram\App\Commands\Command;
+use Romanlazko\Telegram\App\DB;
 use Romanlazko\Telegram\App\Entities\Response;
 use Romanlazko\Telegram\App\Entities\Update;
 
@@ -65,15 +64,12 @@ class Calculate extends Command
             "Обратите внимание, что в страховку ". ($updates->getInlineData()->getShengen() == '1' ? "*включено покрытие зоны Шенген*" : "*не включено покрытие зоны Шенген*"),
         ]);
 
-        $buttons = BotApi::inlineKeyboardWithLink(
-            array('text' => "ОФОРМИТЬ СТРАХОВКУ", 'web_app' => ['url' => 'https://forms.amocrm.ru/rvcmwdc']),
-            [
+        $buttons = BotApi::inlineKeyboard([
+                [array(BuyInsurance::getTitle('ru'), BuyInsurance::$command, '')],
                 [array(InsuranceInfo::getTitle('ru'), InsuranceInfo::$command, $insurance->name)],
                 [array(ContactManager::getTitle('ru'), ContactManager::$command, '')],
                 [array(MenuCommand::getTitle('ru'), MenuCommand::$command, '')],
-            ],
-            'insurance_name'
-        );
+            ], 'insurance_name');
 
         $data = [
             'text'          =>  $text,
@@ -83,9 +79,10 @@ class Calculate extends Command
             'message_id'    =>  $updates->getCallbackQuery()?->getMessage()->getMessageId(),
         ];
 
-        $questionnaire = Questionnaire::where('is_active', true)->where('service', 'insurance')->first();
 
-        SendQuestionnaire::dispatch($questionnaire?->id, $updates->getChat()->getId())->delay(now()->addMinutes(1));
+        $telegram_chat = DB::getChat($updates->getChat()->getId());
+
+        event(new ChatFinishCalculatingInsurance($telegram_chat->id));
 
         return BotApi::returnInline($data);
     }

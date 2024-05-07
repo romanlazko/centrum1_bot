@@ -1,10 +1,14 @@
 <?php 
 
-namespace App\Bots\Centrum1_bot\Commands\UserCommands;
+namespace App\Bots\Centrum1_bot\Commands\UserCommands\CalculateInsurance;
 
-use App\Jobs\SendQuestionnaireAfter3Hours;
+use App\Bots\Centrum1_bot\Commands\UserCommands\MenuCommand;
+use App\Events\ChatStartOrderingInsurance;
+use App\Jobs\SendQuestionnaire;
+use App\Models\Questionnaire\Questionnaire;
 use Romanlazko\Telegram\App\BotApi;
 use Romanlazko\Telegram\App\Commands\Command;
+use Romanlazko\Telegram\App\DB;
 use Romanlazko\Telegram\App\Entities\Response;
 use Romanlazko\Telegram\App\Entities\Update;
 
@@ -42,8 +46,10 @@ class BuyInsurance extends Command
             'message_id'    =>  $updates->getCallbackQuery()?->getMessage()->getMessageId(),
         ];
 
-        SendQuestionnaireAfter3Hours::dispatch($updates->getChat()->getId())->delay(now()->addHours(3));
+        $telegram_chat = DB::getChat($updates->getChat()->getId());
 
-        return BotApi::sendMessage($data);
+        event(new ChatStartOrderingInsurance($telegram_chat->id));
+
+        return BotApi::returnInline($data);
     }
 }

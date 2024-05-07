@@ -22,9 +22,13 @@ class CommandsList extends DefaultCommandsList
             UserCommands\DefaultCommand::class,
             UserCommands\ContactManager::class,
             UserCommands\SendContact::class,
+            UserCommands\AssignTag::class,
 
             
             UserCommands\CalculateInsurance\CalculateInsurance::class,
+            UserCommands\CalculateInsurance\CalculateInsuranceAgain::class,
+            UserCommands\CalculateInsurance\CalculateInsuranceNotifyLater::class,
+            UserCommands\CalculateInsurance\OrderInsuranceNotifyLater::class,
             // LowestCost
             UserCommands\CalculateInsurance\LowestCost\LowestCost::class,
             UserCommands\CalculateInsurance\LowestCost\CalculateLowestCost::class,
@@ -56,6 +60,7 @@ class CommandsList extends DefaultCommandsList
 
             UserCommands\CalculateInsurance\Type::class,
             UserCommands\CalculateInsurance\Calculate::class,
+            UserCommands\CalculateInsurance\BuyInsurance::class,
             UserCommands\CalculateInsurance\InsuranceInfo::class,
 
             // Questionnaire
@@ -73,7 +78,7 @@ class CommandsList extends DefaultCommandsList
             UserCommands\Profile\Phone::class,
             UserCommands\Profile\AwaitPhone::class,
 
-            // Calculate 
+            // Calculate bank
             UserCommands\CalculateBank\CalculateAmount::class,
             UserCommands\CalculateBank\EndOfVisa::class,
             UserCommands\CalculateBank\Applying::class,

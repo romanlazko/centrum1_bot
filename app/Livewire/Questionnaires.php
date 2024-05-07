@@ -21,6 +21,7 @@ use Livewire\Component;
 use Romanlazko\Telegram\App\Bot;
 use App\Models\Advertisement as ModelsAdvertisement;
 use App\Models\Questionnaire\Questionnaire;
+use App\Models\Tag;
 use Filament\Forms\Components\KeyValue;
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Section;
@@ -44,7 +45,6 @@ class Questionnaires extends Component implements HasForms, HasTable
             ->columns([
                 TextColumn::make('name')
                     ->url(fn (Questionnaire $questionnaire) => route('questionnaire.show', $questionnaire->id)),
-                TextColumn::make('service'),
                 TextColumn::make('answers_count')
                     ->state(fn (Questionnaire $questionnaire) => $questionnaire->answers()->count()),
                 ToggleColumn::make('is_active'),
@@ -54,13 +54,6 @@ class Questionnaires extends Component implements HasForms, HasTable
                 EditAction::make()
                     ->form([
                         TextInput::make('name'),
-                        Select::make('service')
-                            ->label('Услуга')
-                            ->helperText('После какого подсчета будет отправляться опрос')
-                            ->options([
-                                'insurance' => 'Страхование',
-                                'bank' => 'Банк',
-                            ]),
                         Repeater::make('questions')
                             ->relationship('questions')
                             ->schema([
@@ -81,8 +74,9 @@ class Questionnaires extends Component implements HasForms, HasTable
                                             ]),
                                         TextInput::make('text')
                                             ->label('Текст кнопки'),
-                                        TextInput::make('value')
+                                        Select::make('tag_id')
                                             ->label('Тэг')
+                                            ->options(Tag::all()->pluck('name', 'id'))
                                             ->helperText('Тэг будет присвоен пользователю при нажатии'),
                                     ])
                                     ->columns(3)
@@ -96,13 +90,6 @@ class Questionnaires extends Component implements HasForms, HasTable
                 CreateAction::make()
                     ->form([
                         TextInput::make('name'),
-                        Select::make('service')
-                            ->label('Услуга')
-                            ->helperText('После какого подсчета будет отправляться опрос')
-                            ->options([
-                                'insurance' => 'Страхование',
-                                'bank' => 'Банк',
-                            ]),
                         Repeater::make('questions')
                             ->relationship('questions')
                             ->schema([

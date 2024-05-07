@@ -41,7 +41,7 @@ class SendQuestionnaire implements ShouldQueue, ShouldBeUnique
 
         $telegram_chat = DB::getChat($this->chat_id);
 
-        $answer =$this->questionnaire->answers()->updateOrCreate([
+        $answer = $this->questionnaire->answers()->updateOrCreate([
             'telegram_chat_id' => $telegram_chat->id,
         ]);
 
