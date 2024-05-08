@@ -15,7 +15,7 @@ class LowestCost extends Command
     public static $command = 'lowest_cost';
 
     public static $title = [
-        'ru' => 'ЛУЧШАЯ ЦЕНА',
+        'ru' => 'САМАЯ ДЕШЁВАЯ',
         'en' => 'BETTER PRICE'
     ];
 
