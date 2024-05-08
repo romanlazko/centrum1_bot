@@ -35,7 +35,7 @@ class BuyInsurance extends Command
 
         if (!$tag) {
             $tag = Tag::create([
-                'name' => '#повторный подсчет страховки'
+                'name' => '#оформление страховки'
             ]);
         }
 
