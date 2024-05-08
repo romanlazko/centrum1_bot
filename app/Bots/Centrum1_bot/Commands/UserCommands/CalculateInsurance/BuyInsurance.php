@@ -23,7 +23,7 @@ class BuyInsurance extends Command
         'en' => 'BUY INSURANCE',
     ];
 
-    public static $usage = ['buy_insurance'];
+    public static $usage = ['buy_insurance', '/insurance'];
 
     protected $enabled = true;
 
