@@ -53,6 +53,9 @@ class SendAdvertisementJob implements ShouldQueue
             'media'                     => $images ?? null,
             'parse_mode'                => 'Markdown',
         ]);
+
+
+        sleep(1);
     }
 
     public function uniqueId(): string

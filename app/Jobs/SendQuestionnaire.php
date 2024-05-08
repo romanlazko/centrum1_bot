@@ -80,6 +80,9 @@ class SendQuestionnaire implements ShouldQueue, ShouldBeUnique
                 'status'            => 'failed',
             ]);
         }
+
+
+        sleep(1);
     }
 
     public function uniqueId(): string
