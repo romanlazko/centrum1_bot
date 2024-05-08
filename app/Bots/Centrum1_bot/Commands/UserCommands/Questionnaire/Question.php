@@ -2,6 +2,7 @@
 
 namespace App\Bots\Centrum1_bot\Commands\UserCommands\Questionnaire;
 
+use App\Bots\Centrum1_bot\Commands\UserCommands\DataIsSend;
 use App\Bots\Centrum1_bot\Commands\UserCommands\MenuCommand;
 use App\Bots\Centrum1_bot\Commands\UserCommands\Profile\Profile;
 use App\Jobs\SendQuestionnaireAfter3Hours;
@@ -9,6 +10,7 @@ use App\Models\Questionnaire\QuestionButton;
 use App\Models\Questionnaire\Questionnaire;
 use Romanlazko\Telegram\App\BotApi;
 use Romanlazko\Telegram\App\Commands\Command;
+use Romanlazko\Telegram\App\DB;
 use Romanlazko\Telegram\App\Entities\Response;
 use Romanlazko\Telegram\App\Entities\Update;
 
@@ -33,8 +35,16 @@ class Question extends Command
 
         $question = $questionnaire->getNextQuestion($questionButton->question->id);
 
+        
+
         if (!$question) {
-            return $this->bot->executeCommand(Profile::$command);
+            $telegram_chat = DB::getChat($updates->getChat()->getId());
+
+            $questionnaire->answers()->where('telegram_chat_id', $telegram_chat->id)->first()->update([
+                'finished'   => true,
+            ]);
+            
+            return $this->bot->executeCommand(DataIsSend::$command);
         }
 
         $buttons = $question->question_buttons

@@ -6,6 +6,7 @@ use App\Bots\Centrum1_bot\Commands\UserCommands\MenuCommand;
 use App\Jobs\SendQuestionnaireAfter3Hours;
 use App\Models\Questionnaire\QuestionButton;
 use App\Models\Questionnaire\Questionnaire;
+use App\Models\TelegramChatTag;
 use Romanlazko\Telegram\App\BotApi;
 use Romanlazko\Telegram\App\Commands\Command;
 use Romanlazko\Telegram\App\DB;
@@ -48,12 +49,9 @@ class Answer extends Command
             'answers' => $answers,
         ]);
 
-        $tags = is_array(json_decode($telegram_chat->tags, true)) ? json_decode($telegram_chat->tags, true) : [];
-
-        array_push($tags, $questionButton->value);
-
-        $telegram_chat->update([
-            'tags' => json_encode($tags),
+        TelegramChatTag::create([
+            'telegram_chat_id' => $telegram_chat->id,
+            'tag_id' => $questionButton->tag_id,
         ]);
 
         return $this->bot->executeCommand(Question::$command);

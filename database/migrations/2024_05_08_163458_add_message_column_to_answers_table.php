@@ -11,10 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('telegram_chats', function (Blueprint $table) {
-            $table->after('profile_phone', function (Blueprint $table) {
-                $table->string('tags')->nullable();
-            });
+        Schema::table('answers', function (Blueprint $table) {
+            $table->string('status')->default('created');
+            $table->text('message')->nullable();
         });
     }
 
@@ -23,8 +22,9 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('telegram_chats', function (Blueprint $table) {
-            $table->dropColumn('tags');
+        Schema::table('answers', function (Blueprint $table) {
+            $table->dropColumn('status');
+            $table->dropColumn('message');
         });
     }
 };

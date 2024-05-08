@@ -15,18 +15,22 @@ use Romanlazko\Telegram\App\Bot;
 use Romanlazko\Telegram\App\BotApi;
 use Romanlazko\Telegram\App\DB;
 use Romanlazko\Telegram\Models\TelegramBot;
+use Romanlazko\Telegram\Models\TelegramChat;
+use Throwable;
 
 class SendQuestionnaire implements ShouldQueue, ShouldBeUnique
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
+    public TelegramChat $telegram_chat;
     public Questionnaire $questionnaire;
 
     /**
      * Create a new job instance.
      */
-    public function __construct(protected $questionnaire_id, protected $chat_id)
+    public function __construct(protected $questionnaire_id, protected $telegram_chat_id)
     {
+        $this->telegram_chat = TelegramChat::find($telegram_chat_id);
         $this->questionnaire = Questionnaire::find($questionnaire_id);
     }
 
@@ -39,37 +43,59 @@ class SendQuestionnaire implements ShouldQueue, ShouldBeUnique
 
         $question = $this->questionnaire->questions()->first();
 
-        $telegram_chat = DB::getChat($this->chat_id);
-
         $answer = $this->questionnaire->answers()->updateOrCreate([
-            'telegram_chat_id' => $telegram_chat->id,
+            'telegram_chat_id' => $this->telegram_chat->id,
         ]);
 
-        if (!is_null($answer->answers)) {
+        if (!is_null($answer?->finished)) {
             return;
         }
 
-        $buttons = $question->question_buttons
+        $buttons = $question?->question_buttons
             ->map(fn ($button) => [array($button->text, Answer::$command, $button->id)])
             ->toArray();
 
-        $buttons = BotApi::inlineKeyboard($buttons, 'question_button_id');
+        try {
+            $buttons = BotApi::inlineKeyboard($buttons, 'question_button_id');
 
-        $text = implode("\n", [
-            "*{$question->title}*"."\n",
-            "{$question->body}"
-        ]);
+            $text = implode("\n", [
+                "*{$question->title}*"."\n",
+                "{$question->body}"
+            ]);
+    
+            $bot::sendMessage([
+                'text'                      => $text,
+                'reply_markup'              => $buttons,
+                'chat_id'                   => $this->telegram_chat->chat_id,
+                'parse_mode'                => 'Markdown',
+            ]);
 
-        $bot::sendMessage([
-            'text'                      => $text,
-            'reply_markup'              => $buttons,
-            'chat_id'                   => $this->chat_id,
-            'parse_mode'                => 'Markdown',
-        ]);
+            $answer->update([
+                'status' => 'success',
+            ]);
+
+        } catch (\Exception $exception) {
+            $answer->update([
+                'message'           => $exception->getMessage(),
+                'status'            => 'failed',
+            ]);
+        }
     }
 
     public function uniqueId(): string
     {
-        return $this->questionnaire_id . '_' . $this->chat_id;
+        return $this->questionnaire_id . '_' . $this->telegram_chat->chat_id;
     }
+
+    // public function failed(Throwable $exception): void
+    // {
+    //     $answer = $this->questionnaire->answers()->updateOrCreate([
+    //         'telegram_chat_id' => $this->telegram_chat->id,
+    //     ]);
+
+    //     $answer->update([
+    //         'message'           => $exception->getMessage(),
+    //         'status'            => 'failed',
+    //     ]);
+    // }
 }

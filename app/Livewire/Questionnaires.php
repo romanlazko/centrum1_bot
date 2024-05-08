@@ -77,6 +77,10 @@ class Questionnaires extends Component implements HasForms, HasTable
                                         Select::make('tag_id')
                                             ->label('Тэг')
                                             ->options(Tag::all()->pluck('name', 'id'))
+                                            ->createOptionForm([
+                                                TextInput::make('name')
+                                            ])
+                                            ->createOptionUsing(fn (array $data) => Tag::create($data)->id)
                                             ->helperText('Тэг будет присвоен пользователю при нажатии'),
                                     ])
                                     ->columns(3)
@@ -110,8 +114,9 @@ class Questionnaires extends Component implements HasForms, HasTable
                                             ]),
                                         TextInput::make('text')
                                             ->label('Текст кнопки'),
-                                        TextInput::make('value')
+                                        Select::make('tag_id')
                                             ->label('Тэг')
+                                            ->options(Tag::all()->pluck('name', 'id'))
                                             ->helperText('Тэг будет присвоен пользователю при нажатии'),
                                     ])
                                     ->columns(3)

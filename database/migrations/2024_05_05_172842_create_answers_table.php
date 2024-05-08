@@ -23,10 +23,7 @@ return new class extends Migration
                 ->cascadeOnDelete();
 
             $table->json('answers')->nullable();
-            $table->date('communication_date')->nullable();
-            $table->date('issue_date')->nullable();
-            $table->boolean('is_communicated')->nullable();
-            $table->text('notes')->nullable();
+            $table->boolean('finished')->default(false);
             
             $table->timestamps();
             $table->softDeletes();

@@ -3,6 +3,8 @@
 namespace App\Livewire;
 
 use App\Jobs\DispatchAdvertisementJob;
+use App\Jobs\SendAdvertisementJob;
+use App\Jobs\SendQuestionnaire;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
@@ -29,10 +31,12 @@ use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\ToggleButtons;
 use Filament\Tables\Actions\Action;
+use Filament\Tables\Actions\BulkAction;
 use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Columns\TextInputColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Illuminate\Support\Facades\Bus;
+use Romanlazko\Telegram\Models\Advertisement;
 use Romanlazko\Telegram\Models\TelegramChat;
 
 class Answers extends Component implements HasForms, HasTable
@@ -89,40 +93,33 @@ class Answers extends Component implements HasForms, HasTable
                     ->label('Профиль')
                     ->description(fn (Answer $answer) => $answer->chat?->profile_phone),
                 ...$questions,
-                TextInputColumn::make('communication_date')
-                    ->label('Дата следующей связи')
-                    ->type('date')
+                TextColumn::make('status')
+                    ->badge()
+                    ->color(function (Answer $answer) {
+                        return match ($answer->status) {
+                            'created' => 'primary',
+                            'in_progress' => 'warning',
+                            'success' => 'success',
+                            'failed' => 'danger',
+                            'canceled' => 'danger',
+                            default => 'secondary',
+                        };
+                    })
                     ->sortable(),
-                TextInputColumn::make('issue_date')
-                    ->label('Предпологаемая дата оформления')
-                    ->type('date')
-                    ->sortable(),
-                TextInputColumn::make('notes')
-                    ->label('Заметки')
-                    ->type('text')
-                    ->extraAttributes(['class' => 'w-max']),
-                ToggleColumn::make('is_communicated')
-                    ->label('Связан')
-                    ->sortable(),
+                TextColumn::make('message'),
                 TextColumn::make('created_at')
-                    ->label('Дата создания')
-                    ->dateTime()
-                    ->sortable(),
-                TextColumn::make('updated_at')
-                    ->label('Дата обновления')
-                    ->dateTime()
+                    ->label('Дата создания/обновления')
+                    ->wrapHeader()
+                    ->state(fn (Answer $answer) => $answer->created_at->diffForHumans())
+                    ->description(fn (Answer $answer) => $answer->updated_at->diffForHumans())
                     ->sortable(),
                 
             ])
             ->actions([
-                
                 DeleteAction::make(),
             ])
             ->filters([
                 ...$filters
-            ])
-            ->bulkActions([
-                
             ]);
     }
 

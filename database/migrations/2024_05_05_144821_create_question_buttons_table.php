@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Questionnaire\Question;
+use App\Models\Tag;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -18,7 +19,9 @@ return new class extends Migration
                 ->constrained()
                 ->cascadeOnDelete();
             $table->string('text')->nullable();
-            $table->string('value')->nullable();
+            $table->foreignIdFor(Tag::class)
+                ->constrained()
+                ->cascadeOnDelete();
             $table->string('type')->nullable();
             
             $table->timestamps();

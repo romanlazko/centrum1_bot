@@ -30,6 +30,10 @@ class ContactManager extends Command
     {
         $telegram_chat = DB::getChat($updates->getChat()->getId());
 
+        $telegram_chat->update([
+            'is_communicated' => false
+        ]);
+
         event(new ChatWantsToContactManager($telegram_chat->id));
 
         $result = $this->bot->executeCommand(DataIsSend::$command);
