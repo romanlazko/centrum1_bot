@@ -27,7 +27,10 @@ class HelpCommand extends Command
         ]);
 
         $text = implode("\n", [
-            "Наши контакты *@centr1_cz*" 
+            "Наши контакты 💻",
+            "*@centr1_cz* (телеграм)",
+            "+420 601519581",
+            "*info@centr1.cz*",
         ]);
 
         $data = [

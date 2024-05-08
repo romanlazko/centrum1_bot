@@ -42,7 +42,7 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::get('/cron', function () {
-    return Artisan::call('queue:work --max-time=1800 --stop-when-empty');
+    return Artisan::call('queue:work --max-time=300 --stop-when-empty');
 })->name('cron');
 
 require __DIR__.'/auth.php';

@@ -63,20 +63,19 @@ class SendNotificationToFinishCalculatingInsurance implements ShouldQueue
 
     public function withDelay(): int
     {
-        // $currentTime = now();
+        $currentTime = now();
 
-        // // Добавляем 2 часа к текущему времени
-        // $sendTime = $currentTime->copy()->addHours(2);
+        // Добавляем 2 часа к текущему времени
+        $sendTime = $currentTime->copy()->addHours(2);
 
-        // // Если время отправки больше 20:00, устанавливаем его на следующее утро в 9:00
-        // if ($sendTime->hour >= 20) {
-        //     $sendTime->addDay()->hour(9)->minute(0)->second(0);
-        // }
+        // Если время отправки больше 20:00, устанавливаем его на следующее утро в 9:00
+        if ($sendTime->hour >= 20) {
+            $sendTime->addDay()->hour(9)->minute(0)->second(0);
+        }
 
-        // // Вычисляем разницу в секундах между текущим временем и временем отправки
-        // $secondsUntilSend = $currentTime->diffInSeconds($sendTime);
+        // Вычисляем разницу в секундах между текущим временем и временем отправки
+        $secondsUntilSend = $currentTime->diffInSeconds($sendTime);
 
-        // return $secondsUntilSend;
-        return 60;
+        return $secondsUntilSend;
     }
 }
