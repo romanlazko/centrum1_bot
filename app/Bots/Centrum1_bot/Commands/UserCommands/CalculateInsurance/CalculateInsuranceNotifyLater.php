@@ -22,7 +22,7 @@ class CalculateInsuranceNotifyLater extends Command
     public static $command = 'cin_later';
 
     public static $title = [
-        'ru' => 'Напомнить позже',
+        'ru' => 'Напомните мне позже',
         'en' => 'Notify later',
     ];
 
@@ -33,7 +33,7 @@ class CalculateInsuranceNotifyLater extends Command
     public function execute(Update $updates): Response
     {
         $text = implode("\n", [
-            "Хорошо мы напоним Вам позже об этом"
+            "Спасибо, мы напомним вам позже, хорошего вам дня!"
         ]);
 
         $data = [

@@ -54,11 +54,6 @@ class Calculate extends Command
         ]);
 
         try {
-
-            $questionnaire = Questionnaire::where('is_active', true)->where('service', 'bank')->first();
-
-            SendQuestionnaire::dispatch($questionnaire?->id, $updates->getChat()->getId())->delay(now()->addMinutes(1));
-
             return BotApi::returnInline([
                 'text'          =>  $text,
                 'chat_id'       =>  $updates->getChat()->getId(),

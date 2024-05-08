@@ -6,6 +6,8 @@ use App\Bots\Centrum1_bot\Commands\UserCommands\MenuCommand;
 use App\Events\ChatStartOrderingInsurance;
 use App\Jobs\SendQuestionnaire;
 use App\Models\Questionnaire\Questionnaire;
+use App\Models\Tag;
+use App\Models\TelegramChatTag;
 use Romanlazko\Telegram\App\BotApi;
 use Romanlazko\Telegram\App\Commands\Command;
 use Romanlazko\Telegram\App\DB;
@@ -27,6 +29,21 @@ class BuyInsurance extends Command
 
     public function execute(Update $updates): Response
     {
+        $telegram_chat = DB::getChat($updates->getChat()->getId());
+
+        $tag = Tag::where('name', '#оформление страховки')->first();
+
+        if (!$tag) {
+            $tag = Tag::create([
+                'name' => '#повторный подсчет страховки'
+            ]);
+        }
+
+        TelegramChatTag::create([
+            'telegram_chat_id' => $telegram_chat->id,
+            'tag_id' => $tag->id,
+        ]);
+
         $buttons = BotApi::inlineKeyboardWithLink(
             array('text' => "Заполнить форму", 'web_app' => ['url' => 'https://forms.amocrm.ru/rvcmwdc']),
             [
@@ -45,8 +62,6 @@ class BuyInsurance extends Command
             'parse_mode'    =>  'Markdown',
             'message_id'    =>  $updates->getCallbackQuery()?->getMessage()->getMessageId(),
         ];
-
-        $telegram_chat = DB::getChat($updates->getChat()->getId());
 
         event(new ChatStartOrderingInsurance($telegram_chat->id));
 

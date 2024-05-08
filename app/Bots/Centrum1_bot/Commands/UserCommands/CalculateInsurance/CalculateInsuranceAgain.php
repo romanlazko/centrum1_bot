@@ -22,7 +22,7 @@ class CalculateInsuranceAgain extends Command
     public static $command = 'ci_again';
 
     public static $title = [
-        'ru' => 'Посчитать страховку снова',
+        'ru' => 'Повторный подсчет страховки',
         'en' => 'Calculate Insurance Again',
     ];
 

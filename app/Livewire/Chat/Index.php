@@ -67,11 +67,6 @@ class Index extends Component implements HasForms, HasTable
                     })
                     ->description(fn (CustomTelegramChat $telegram_chat) => $telegram_chat->username)
                     ->url(fn (CustomTelegramChat $telegram_chat): string => route('chat.show', $telegram_chat)),
-                SelectColumn::make('role')
-                    ->options([
-                        'admin' => 'Admin',
-                        'user' => 'User',
-                    ]),
                 TextColumn::make('latest_message')
                     ->state(fn (CustomTelegramChat $telegram_chat) => $telegram_chat->messages()->latest()->first()->text)
                     ->limit(50)

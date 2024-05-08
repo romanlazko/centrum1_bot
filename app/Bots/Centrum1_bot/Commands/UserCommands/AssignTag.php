@@ -39,6 +39,6 @@ class AssignTag extends Command
             'tag_id' => $tag->id,
         ]);
 
-        return $this->bot->executeCommand(Profile::$command);
+        return $this->bot->executeCommand(DataIsSend::$command);
     }
 }

@@ -4,7 +4,6 @@ namespace App\Events;
 
 use App\Models\Tag;
 use App\Models\TelegramChatEvent;
-use App\Models\TelegramChatEvents;
 use App\Models\TelegramChatTag;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
@@ -15,12 +14,12 @@ use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 use Romanlazko\Telegram\Models\TelegramChat;
 
-class ChatStartCalculatingInsurance
+class ChatWantsToContactManager
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     public $event_name = 'start_calculating_insurance';
-    public $tag = '#пользователь начал подсчет страховки';
+    public $tag = '#хочет связаться с менеджером';
 
     /**
      * Create a new event instance.
@@ -28,10 +27,8 @@ class ChatStartCalculatingInsurance
     public function __construct(public $telegram_chat_id)
     {
         
-        $this->assignEvent();
-        // $this->assignTag();
-
-        
+        // $this->assignEvent();
+        $this->assignTag();
     }
 
     private function assignEvent()

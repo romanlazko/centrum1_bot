@@ -23,6 +23,7 @@ class CommandsList extends DefaultCommandsList
             UserCommands\ContactManager::class,
             UserCommands\SendContact::class,
             UserCommands\AssignTag::class,
+            UserCommands\DataIsSend::class,
 
             
             UserCommands\CalculateInsurance\CalculateInsurance::class,
@@ -62,6 +63,7 @@ class CommandsList extends DefaultCommandsList
             UserCommands\CalculateInsurance\Calculate::class,
             UserCommands\CalculateInsurance\BuyInsurance::class,
             UserCommands\CalculateInsurance\InsuranceInfo::class,
+            UserCommands\CalculateInsurance\OppositionInsurance::class,
 
             // Questionnaire
             UserCommands\Questionnaire\Answer::class,
@@ -77,6 +79,8 @@ class CommandsList extends DefaultCommandsList
 
             UserCommands\Profile\Phone::class,
             UserCommands\Profile\AwaitPhone::class,
+            
+
 
             // Calculate bank
             UserCommands\CalculateBank\CalculateAmount::class,

@@ -2,50 +2,48 @@
 
 namespace App\Listeners;
 
-use App\Bots\Centrum1_bot\Commands\UserCommands\CalculateInsurance\CalculateInsurance;
-use App\Bots\Centrum1_bot\Commands\UserCommands\CalculateInsurance\CalculateInsuranceAgain;
-use App\Bots\Centrum1_bot\Commands\UserCommands\CalculateInsurance\CalculateInsuranceNotifyLater;
+use App\Bots\Centrum1_bot\Commands\UserCommands\AssignTag;
+use App\Bots\Centrum1_bot\Commands\UserCommands\CalculateInsurance\BuyInsurance;
 use App\Bots\Centrum1_bot\Commands\UserCommands\ContactManager;
 use App\Bots\Centrum1_bot\Commands\UserCommands\MenuCommand;
-use App\Events\ChatStartCalculatingInsurance;
-use App\Models\TelegramChatEvent;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Queue\InteractsWithQueue;
+use App\Events\ChatWantsToContactManager;
 use Romanlazko\Telegram\App\Bot;
 use Romanlazko\Telegram\App\BotApi;
 use Romanlazko\Telegram\Models\TelegramBot;
 use Romanlazko\Telegram\Models\TelegramChat;
 
-class SendNotificationToFinishCalculatingInsurance implements ShouldQueue
+use Illuminate\Contracts\Queue\ShouldQueue;
+
+class SendNotificationContactManagerFeedback implements ShouldQueue
 {
+    /**
+     * Create the event listener.
+     */
+    public function __construct()
+    {
+        //
+    }
+
     /**
      * Handle the event.
      */
-    public function handle(ChatStartCalculatingInsurance $event): void
+    public function handle(ChatWantsToContactManager $event): void
     {
         $telegram_chat = TelegramChat::find($event->telegram_chat_id);
-
-        $telegram_chat_event = TelegramChatEvent::where('telegram_chat_id', $event->telegram_chat_id)->latest()->first()->event;
-
-        if ($telegram_chat_event != $event->event_name) {
-            return;
-        }
 
         $bot = new Bot(env('TELEGRAM_BOT_TOKEN', TelegramBot::first()->token));
 
         $buttons = BotApi::inlineKeyboard([
-            [array(CalculateInsuranceAgain::getTitle('ru'), CalculateInsuranceAgain::$command, '')],
-            [array(CalculateInsuranceNotifyLater::getTitle('ru'), CalculateInsuranceNotifyLater::$command, '')],
-            [array(ContactManager::getTitle('ru'), ContactManager::$command, '')],
+            [array('Да все хорошо', AssignTag::$command, '#уже связались')],
+            [array('Нет, со мной не связались', ContactManager::$command, '')],
+            [array(BuyInsurance::getTitle('ru'), BuyInsurance::$command, '')],
             [array(MenuCommand::getTitle('ru'), MenuCommand::$command, '')],
-        ]);
+        ], 'temp');
 
         $text = implode("\n", [
-            "Мы видим, что вы не закончили расчёт стоимости страховки, возможно вас отвлекли или у вас возникли трудности👌"."\n",
-
-            "Наш бот настроен так, чтобы подобрать для вас лучшее предложение на рынке и сделать оптимальный выбор."."\n",
-
-            "*Хотели бы вы продолжить расчёт?*"
+            "*Всё ли прошло хорошо?☺*"."\n",
+            "Здравствуйте!👋"."\n",
+            "Связался ли с вами менеджер, все ли прошло хорошо? Можем ли мы вам еще чем то помочь?"
         ]);
 
         $bot::sendMessage([
@@ -56,7 +54,7 @@ class SendNotificationToFinishCalculatingInsurance implements ShouldQueue
         ]);
     }
 
-    public function uniqueId(ChatStartCalculatingInsurance $event): string
+    public function uniqueId(ChatWantsToContactManager $event): string
     {
         return $event->telegram_chat_id;
     }

@@ -17,8 +17,6 @@ use Romanlazko\Telegram\Models\TelegramChat;
 
 class SendNotificationIsFinishedOrderingInsurance implements ShouldQueue
 {
-
-    public $delay = 60;
     /**
      * Create the event listener.
      */
@@ -68,5 +66,24 @@ class SendNotificationIsFinishedOrderingInsurance implements ShouldQueue
     public function uniqueId(ChatStartOrderingInsurance $event): string
     {
         return $event->telegram_chat_id;
+    }
+
+    public function withDelay(): int
+    {
+        // $currentTime = now();
+
+        // // Добавляем 2 часа к текущему времени
+        // $sendTime = $currentTime->copy()->addHours(2);
+
+        // // Если время отправки больше 20:00, устанавливаем его на следующее утро в 9:00
+        // if ($sendTime->hour >= 20) {
+        //     $sendTime->addDay()->hour(9)->minute(0)->second(0);
+        // }
+
+        // // Вычисляем разницу в секундах между текущим временем и временем отправки
+        // $secondsUntilSend = $currentTime->diffInSeconds($sendTime);
+
+        // return $secondsUntilSend;
+        return 60;
     }
 }
