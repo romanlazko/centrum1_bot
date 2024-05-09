@@ -43,8 +43,8 @@ class SendNotificationContactManagerFeedback implements ShouldQueue, ShouldBeUni
         $bot = new Bot(env('TELEGRAM_BOT_TOKEN', TelegramBot::first()->token));
 
         $buttons = BotApi::inlineKeyboard([
-            [array('Да все хорошо', AssignTag::$command, '#уже связались')],
-            [array('Нет, со мной не связались', ContactManager::$command, '')],
+            [array('ДА ВСЕ ХОРОШО', AssignTag::$command, '#уже связались')],
+            [array('НЕТ, СО МНОЙ НЕ СВЯЗАЛИСЬ', ContactManager::$command, '')],
             [array(BuyInsurance::getTitle('ru'), BuyInsurance::$command, '')],
             [array(MenuCommand::getTitle('ru'), MenuCommand::$command, '')],
         ], 'temp');

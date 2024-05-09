@@ -28,8 +28,8 @@ class DataIsSend extends Command
     public function execute(Update $updates): Response
     {
         $buttons = BotApi::inlineKeyboard([
-            [array("Оставить контактные данные", Profile::$command, '')],
-            [array("Наши контакты", HelpCommand::$command, '')],
+            [array("ОСТАВИТЬ КОНТАКТНЫЕ ДАННЫЕ", Profile::$command, '')],
+            [array("НАШИ КОНТАКТЫ", HelpCommand::$command, '')],
             [array(MenuCommand::getTitle('ru'), MenuCommand::$command, '')],
         ]);
 
