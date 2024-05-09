@@ -38,7 +38,7 @@ class SendNotificationToFinishCalculatingInsurance implements ShouldQueue, Shoul
         $bot = new Bot(env('TELEGRAM_BOT_TOKEN', TelegramBot::first()->token));
 
         $buttons = BotApi::inlineKeyboard([
-            [array(CalculateInsuranceAgain::getTitle('ru'), CalculateInsuranceAgain::$command, '')],
+            [array(CalculateInsurance::getTitle('ru'), CalculateInsurance::$command, '')],
             [array(CalculateInsuranceNotifyLater::getTitle('ru'), CalculateInsuranceNotifyLater::$command, '')],
             [array(ContactManager::getTitle('ru'), ContactManager::$command, '')],
             [array(MenuCommand::getTitle('ru'), MenuCommand::$command, '')],

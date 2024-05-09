@@ -34,18 +34,9 @@ class CalculateInsuranceAgain extends Command
     {
         $telegram_chat = DB::getChat($updates->getChat()->getId());
 
-        $tag = Tag::where('name', '#повторный подсчет страховки')->first();
-
-        if (!$tag) {
-            $tag = Tag::create([
-                'name' => '#повторный подсчет страховки'
-            ]);
-        }
-
-        TelegramChatTag::create([
-            'telegram_chat_id' => $telegram_chat->id,
-            'tag_id' => $tag->id,
-        ]);
+        Tag::firstOrCreate(['name' => '#повторный подсчет страховки'])
+            ->chats()
+            ->attach($telegram_chat->id);
 
         return $this->bot->executeCommand(CalculateInsurance::$command);
     }

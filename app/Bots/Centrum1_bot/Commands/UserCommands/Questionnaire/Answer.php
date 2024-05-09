@@ -6,6 +6,7 @@ use App\Bots\Centrum1_bot\Commands\UserCommands\MenuCommand;
 use App\Jobs\SendQuestionnaireAfter3Hours;
 use App\Models\Questionnaire\QuestionButton;
 use App\Models\Questionnaire\Questionnaire;
+use App\Models\Tag;
 use App\Models\TelegramChatTag;
 use Romanlazko\Telegram\App\BotApi;
 use Romanlazko\Telegram\App\Commands\Command;
@@ -49,10 +50,9 @@ class Answer extends Command
             'answers' => $answers,
         ]);
 
-        TelegramChatTag::create([
-            'telegram_chat_id' => $telegram_chat->id,
-            'tag_id' => $questionButton->tag_id,
-        ]);
+        $questionButton->tag
+            ->chats()
+            ->attach($telegram_chat->id);
 
         return $this->bot->executeCommand(Question::$command);
     }

@@ -35,6 +35,10 @@ class ContactManager extends Command
             'is_communicated' => false
         ]);
 
+        Tag::firstOrCreate(['name' => "#хочет связаться с менеджером"])
+            ->chats()
+            ->attach($telegram_chat->id);
+
         SendNotificationContactManagerFeedback::dispatch($telegram_chat->id)->delay(now()->addHours(24));
 
         $result = $this->bot->executeCommand(DataIsSend::$command);

@@ -35,8 +35,6 @@ class Question extends Command
 
         $question = $questionnaire->getNextQuestion($questionButton->question->id);
 
-        
-
         if (!$question) {
             $telegram_chat = DB::getChat($updates->getChat()->getId());
 

@@ -85,7 +85,7 @@ class Index extends Component implements HasForms, HasTable
                     ->wrap(),
                 TextColumn::make('tags')
                     ->label('Теги')
-                    ->state(fn (CustomTelegramChat $telegram_chat) => $telegram_chat->tags()->limit(10)->pluck('name'))
+                    ->state(fn (CustomTelegramChat $telegram_chat) => $telegram_chat->tags()->orderByDesc('telegram_chat_tags.id')->limit(10)->pluck('name'))
                     ->wrap(false)
                     ->badge(),
                 TextInputColumn::make('communication_date')

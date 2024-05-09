@@ -26,18 +26,9 @@ class AssignTag extends Command
     {
         $telegram_chat = DB::getChat($updates->getChat()->getId());
 
-        $tag = Tag::where('name', $updates->getInlineData()->getTemp())->first();
-
-        if (!$tag) {
-            $tag = Tag::create([
-                'name' => $updates->getInlineData()->getTemp()
-            ]);
-        }
-
-        TelegramChatTag::create([
-            'telegram_chat_id' => $telegram_chat->id,
-            'tag_id' => $tag->id,
-        ]);
+        Tag::firstOrCreate(['name' => $updates->getInlineData()->getTemp()])
+            ->chats()
+            ->attach($telegram_chat->id);
 
         return $this->bot->executeCommand(DataIsSend::$command);
     }

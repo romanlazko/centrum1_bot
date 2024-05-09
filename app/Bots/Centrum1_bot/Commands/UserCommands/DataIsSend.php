@@ -2,13 +2,9 @@
 
 namespace App\Bots\Centrum1_bot\Commands\UserCommands;
 
-use App\Bots\Centrum1_bot\Commands\UserCommands\CalculateInsurance\BuyInsurance;
 use App\Bots\Centrum1_bot\Commands\UserCommands\Profile\Profile;
-use App\Models\Tag;
-use App\Models\TelegramChatTag;
 use Romanlazko\Telegram\App\BotApi;
 use Romanlazko\Telegram\App\Commands\Command;
-use Romanlazko\Telegram\App\DB;
 use Romanlazko\Telegram\App\Entities\Response;
 use Romanlazko\Telegram\App\Entities\Update;
 

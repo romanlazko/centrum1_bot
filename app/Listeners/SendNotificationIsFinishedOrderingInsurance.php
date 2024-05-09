@@ -19,13 +19,6 @@ use Romanlazko\Telegram\Models\TelegramChat;
 class SendNotificationIsFinishedOrderingInsurance implements ShouldQueue
 {
     /**
-     * Create the event listener.
-     */
-    public function __construct()
-    {
-    }
-
-    /**
      * Handle the event.
      */
     public function handle(ChatStartOrderingInsurance $event): void
@@ -43,8 +36,8 @@ class SendNotificationIsFinishedOrderingInsurance implements ShouldQueue
         $bot = new Bot(env('TELEGRAM_BOT_TOKEN', TelegramBot::first()->token));
 
         $buttons = BotApi::inlineKeyboard([
-            [array('Да все хорошо', AssignTag::$command, '#проверить оформил ли')],
-            [array('Я уже жду страховку', AssignTag::$command, '#отправить страховку')],
+            [array('ДА ВСЕ ХОРОШО', AssignTag::$command, '#проверить оформил ли')],
+            [array('Я УЖЕ ЖДУ СТРАХОВКУ', AssignTag::$command, '#отправить страховку')],
             [array(ContactManager::getTitle('ru'), ContactManager::$command, '')],
             [array(BuyInsurance::getTitle('ru'), BuyInsurance::$command, '')],
             [array(MenuCommand::getTitle('ru'), MenuCommand::$command, '')],
@@ -64,11 +57,6 @@ class SendNotificationIsFinishedOrderingInsurance implements ShouldQueue
             'chat_id'                   => $telegram_chat->chat_id,
             'parse_mode'                => 'Markdown',
         ]);
-    }
-
-    public function uniqueId(ChatStartOrderingInsurance $event): string
-    {
-        return $event->telegram_chat_id;
     }
 
     public function withDelay(): int

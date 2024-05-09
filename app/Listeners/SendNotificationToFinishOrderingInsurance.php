@@ -3,6 +3,7 @@
 namespace App\Listeners;
 
 use App\Bots\Centrum1_bot\Commands\UserCommands\CalculateInsurance\BuyInsurance;
+use App\Bots\Centrum1_bot\Commands\UserCommands\CalculateInsurance\CalculateInsurance;
 use App\Bots\Centrum1_bot\Commands\UserCommands\CalculateInsurance\CalculateInsuranceAgain;
 use App\Bots\Centrum1_bot\Commands\UserCommands\CalculateInsurance\OppositionInsurance;
 use App\Bots\Centrum1_bot\Commands\UserCommands\CalculateInsurance\OrderInsuranceNotifyLater;
@@ -19,13 +20,6 @@ use Romanlazko\Telegram\Models\TelegramChat;
 
 class SendNotificationToFinishOrderingInsurance implements ShouldQueue
 {
-    /**
-     * Create the event listener.
-     */
-    public function __construct()
-    {
-    }
-
     /**
      * Handle the event.
      */
@@ -45,7 +39,7 @@ class SendNotificationToFinishOrderingInsurance implements ShouldQueue
 
         $buttons = BotApi::inlineKeyboard([
             [array(BuyInsurance::getTitle('ru'), BuyInsurance::$command, '')],
-            [array(CalculateInsuranceAgain::getTitle('ru'), CalculateInsuranceAgain::$command, '')],
+            [array(CalculateInsurance::getTitle('ru'), CalculateInsurance::$command, '')],
             [array(OrderInsuranceNotifyLater::getTitle('ru'), OrderInsuranceNotifyLater::$command, '')],
             [array(ContactManager::getTitle('ru'), ContactManager::$command, '')],
             [array(OppositionInsurance::getTitle('ru'), OppositionInsurance::$command, '')],

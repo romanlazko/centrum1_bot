@@ -29,10 +29,6 @@ class BuyInsurance extends Command
 
     public function execute(Update $updates): Response
     {
-        $telegram_chat = DB::getChat($updates->getChat()->getId());
-
-        
-
         $buttons = BotApi::inlineKeyboardWithLink(
             array('text' => "ЗАПОЛНИТЬ ФОРМУ", 'web_app' => ['url' => 'https://forms.amocrm.ru/rvcmwdc']),
             [
@@ -51,6 +47,8 @@ class BuyInsurance extends Command
             'parse_mode'    =>  'Markdown',
             'message_id'    =>  $updates->getCallbackQuery()?->getMessage()->getMessageId(),
         ];
+
+        $telegram_chat = DB::getChat($updates->getChat()->getId());
 
         event(new ChatStartOrderingInsurance($telegram_chat->id));
 

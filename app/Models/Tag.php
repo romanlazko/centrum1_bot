@@ -12,4 +12,9 @@ class Tag extends Model
     use HasFactory; use SoftDeletes;
 
     protected $guarded = [];
+
+    public function chats()
+    {
+        return $this->belongsToMany(TelegramChat::class, 'telegram_chat_tags', 'tag_id', 'telegram_chat_id');
+    }
 }

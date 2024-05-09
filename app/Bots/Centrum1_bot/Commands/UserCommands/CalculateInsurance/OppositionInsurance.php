@@ -35,21 +35,12 @@ class OppositionInsurance extends Command
     {
         $telegram_chat = DB::getChat($updates->getChat()->getId());
 
-        $tag = Tag::where('name', '#возражение')->first();
-
-        if (!$tag) {
-            $tag = Tag::create([
-                'name' => '#возражение'
-            ]);
-        }
-
-        TelegramChatTag::create([
-            'telegram_chat_id' => $telegram_chat->id,
-            'tag_id' => $tag->id,
-        ]);
+        Tag::firstOrCreate(['name' => '#возражение'])
+            ->chats()
+            ->attach($telegram_chat->id);
 
         $buttons = BotApi::inlineKeyboard([
-            [array('Да, хочу индивидуальное предложение', ContactManager::$command, '')],
+            [array('ДА, ХОЧУ ИНДИВИДУАЛЬНОЕ ПРЕДЛОЖЕНИЕ', ContactManager::$command, '')],
             [array(MenuCommand::getTitle('ru'), MenuCommand::$command, '')],
         ]);
 

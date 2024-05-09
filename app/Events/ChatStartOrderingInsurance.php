@@ -30,23 +30,9 @@ class ChatStartOrderingInsurance
             'event' => $this->event_name
         ]);
 
-        $this->assignTag();
-    }
-
-    private function assignTag()
-    {
-        $tag = Tag::where('name', $this->tag)->first();
-
-        if (!$tag) {
-            $tag = Tag::create([
-                'name' => $this->tag
-            ]);
-        }
-
-        TelegramChatTag::create([
-            'telegram_chat_id' => $this->telegram_chat_id,
-            'tag_id' => $tag->id,
-        ]);
+        Tag::firstOrCreate(['name' => $this->tag])
+            ->chats()
+            ->attach($this->telegram_chat_id);
     }
 
     /**
