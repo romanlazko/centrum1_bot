@@ -15,7 +15,7 @@ class EndDate extends Command
     public static $command = 'end_date';
 
     public static $title = [
-        'ru' => 'Количество месяцев',
+        'ru' => 'КОЛИЧЕСТВО МЕСЯЦЕВ',
         'en' => 'Count of month',
     ];
 

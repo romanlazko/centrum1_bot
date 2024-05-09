@@ -11,7 +11,7 @@ class SaveStartDate extends Command
     public static $command = 'save_start_date';
 
     public static $title = [
-        'ru' => 'Сохранить дату',
+        'ru' => 'СОХРАНИТЬ ДАТУ',
         'en' => 'Save start date',
     ];
 

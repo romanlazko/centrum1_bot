@@ -13,8 +13,8 @@ class BirthCommand extends Command
     public static $command = 'birth';
 
     public static $title = [
-        'ru' => 'Посчитать страховку',
-        'en' => 'Calculate Insurance'
+        'ru' => 'ПОСЧИТАТЬ СТРАХОВКУ',
+        'en' => 'CALCULATE INSURANCE'
     ];
 
     public static $usage = ['birth'];

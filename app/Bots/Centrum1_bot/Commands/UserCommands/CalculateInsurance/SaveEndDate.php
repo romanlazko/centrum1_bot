@@ -11,7 +11,7 @@ class SaveEndDate extends Command
     public static $command = 'save_end_date';
 
     public static $title = [
-        'ru' => 'Сохранить дату',
+        'ru' => 'СОХРАНИТЬ ДАТУ',
         'en' => 'Save end date',
     ];
 

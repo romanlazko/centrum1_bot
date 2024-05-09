@@ -13,7 +13,7 @@ class Shengen extends Command
     public static $command = 'shengen';
 
     public static $title = [
-        'ru' => 'Шенген',
+        'ru' => 'ШЕНГЕН',
         'en' => 'Shengen',
     ];
 

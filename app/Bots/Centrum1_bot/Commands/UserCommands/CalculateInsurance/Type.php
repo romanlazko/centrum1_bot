@@ -13,8 +13,8 @@ class Type extends Command
     public static $command = 'type';
 
     public static $title = [
-        'ru' => 'Посчитать страховку',
-        'en' => 'Calculate Insurance'
+        'ru' => 'ПОСЧИТАТЬ СТРАХОВКУ',
+        'en' => 'CALCULATE INSURANCE'
     ];
 
     public static $usage = ['type'];

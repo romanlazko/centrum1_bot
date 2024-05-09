@@ -5,6 +5,7 @@ namespace App\Bots\Centrum1_bot\Commands\UserCommands;
 use App\Bots\Centrum1_bot\Commands\UserCommands\CalculateInsurance\BuyInsurance;
 use App\Bots\Centrum1_bot\Commands\UserCommands\Profile\Profile;
 use App\Events\ChatWantsToContactManager;
+use App\Jobs\SendNotificationContactManagerFeedback;
 use App\Models\Tag;
 use App\Models\TelegramChatTag;
 use Romanlazko\Telegram\App\BotApi;
@@ -34,7 +35,7 @@ class ContactManager extends Command
             'is_communicated' => false
         ]);
 
-        event(new ChatWantsToContactManager($telegram_chat->id));
+        SendNotificationContactManagerFeedback::dispatch($telegram_chat->id)->delay(now()->addHours(24));
 
         $result = $this->bot->executeCommand(DataIsSend::$command);
 

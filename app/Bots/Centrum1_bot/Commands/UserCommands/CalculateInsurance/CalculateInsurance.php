@@ -8,6 +8,7 @@ use App\Bots\Centrum1_bot\Commands\UserCommands\CalculateInsurance\LowestCost\Lo
 use App\Bots\Centrum1_bot\Commands\UserCommands\CalculateInsurance\PriceAndQuality\PriceAndQuality;
 use App\Bots\Centrum1_bot\Commands\UserCommands\MenuCommand;
 use App\Events\ChatStartCalculatingInsurance;
+use App\Jobs\SendNotificationToFinishCalculatingInsurance;
 use Romanlazko\Telegram\App\BotApi;
 use Romanlazko\Telegram\App\Commands\Command;
 use Romanlazko\Telegram\App\DB;
@@ -19,8 +20,8 @@ class CalculateInsurance extends Command
     public static $command = 'calculate_insurance';
 
     public static $title = [
-        'ru' => 'Посчитать страховку',
-        'en' => 'Calculate Insurance'
+        'ru' => 'ПОСЧИТАТЬ СТРАХОВКУ',
+        'en' => 'CALCULATE INSURANCE'
     ];
 
     public static $usage = ['calculate_insurance'];

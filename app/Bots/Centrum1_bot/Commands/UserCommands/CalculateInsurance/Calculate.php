@@ -5,6 +5,7 @@ namespace App\Bots\Centrum1_bot\Commands\UserCommands\CalculateInsurance;
 use App\Bots\Centrum1_bot\Commands\UserCommands\ContactManager;
 use App\Bots\Centrum1_bot\Commands\UserCommands\MenuCommand;
 use App\Events\ChatFinishCalculatingInsurance;
+use App\Jobs\SendNotificationToFinishOrderingInsurance;
 use App\Models\Colonnade;
 use App\Models\Maxima;
 use App\Models\Slavia;
@@ -22,8 +23,8 @@ class Calculate extends Command
     public static $command = 'calculate';
 
     public static $title = [
-        'ru' => 'Посчитать страховку',
-        'en' => 'Calculate Insurance'
+        'ru' => 'ПОСЧИТАТЬ СТРАХОВКУ',
+        'en' => 'CALCULATE INSURANCE'
     ];
 
     public static $usage = ['calculate'];
@@ -43,7 +44,7 @@ class Calculate extends Command
         $end_date = Carbon::parse($this->getConversation()->notes['end_date']);
         $count_of_month = ceil($start_date->diffInMonths($end_date));
 
-        $data = (object)[
+        $request = (object)[
             'type' => $updates->getInlineData()->getType(),
             'shengen' => $updates->getInlineData()->getShengen() == '1' ? true : false,
             'start_date' => $this->getConversation()->notes['start_date'],
@@ -51,7 +52,7 @@ class Calculate extends Command
             'birth' => $this->getConversation()->notes['birth'],
         ];
 
-        $insurance = $this->getInsurance()($data);
+        $insurance = $this->getInsurance()($request);
 
         if ($insurance == null) {
             return $this->handleError('*Не удалось подобрать страховку с заданными параметрами*');

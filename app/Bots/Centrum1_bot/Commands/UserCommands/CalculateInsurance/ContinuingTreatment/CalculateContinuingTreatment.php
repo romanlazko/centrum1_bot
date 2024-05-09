@@ -18,7 +18,7 @@ class CalculateContinuingTreatment extends Command
     public static $command = 'calculate_ct';
 
     public static $title = [
-        'ru' => 'Посчитать актуальную страховку',
+        'ru' => 'ПОСЧИТАТЬ АКТУАЛЬНУЮ СТРАХОВКУ',
         'en' => 'Calculate current insurance',
     ];
 

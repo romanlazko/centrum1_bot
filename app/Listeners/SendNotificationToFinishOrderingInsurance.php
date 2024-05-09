@@ -11,6 +11,7 @@ use App\Bots\Centrum1_bot\Commands\UserCommands\MenuCommand;
 use App\Events\ChatFinishCalculatingInsurance;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use App\Models\TelegramChatEvent;
+use Illuminate\Support\Facades\App;
 use Romanlazko\Telegram\App\Bot;
 use Romanlazko\Telegram\App\BotApi;
 use Romanlazko\Telegram\Models\TelegramBot;
@@ -32,11 +33,13 @@ class SendNotificationToFinishOrderingInsurance implements ShouldQueue
     {
         $telegram_chat = TelegramChat::find($event->telegram_chat_id);
 
-        $telegram_chat_event = TelegramChatEvent::where('telegram_chat_id', $event->telegram_chat_id)->latest()->first()->event;
-
-        if ($telegram_chat_event != $event->event_name) {
+        if ($telegram_chat->event != $event->event_name) {
             return;
         }
+
+        $telegram_chat->update([
+            'event' => null
+        ]);
 
         $bot = new Bot(env('TELEGRAM_BOT_TOKEN', TelegramBot::first()->token));
 
@@ -63,26 +66,24 @@ class SendNotificationToFinishOrderingInsurance implements ShouldQueue
         ]);
     }
 
-    public function uniqueId(ChatFinishCalculatingInsurance $event): string
-    {
-        return $event->telegram_chat_id;
-    }
-
     public function withDelay(): int
     {
-        $currentTime = now();
+        if (App::environment('production')) {
+            $currentTime = now();
 
-        // Добавляем 2 часа к текущему времени
-        $sendTime = $currentTime->copy()->addHours(2);
-
-        // Если время отправки больше 20:00, устанавливаем его на следующее утро в 9:00
-        if ($sendTime->hour >= 20) {
-            $sendTime->addDay()->hour(9)->minute(0)->second(0);
+            // Добавляем 2 часа к текущему времени
+            $sendTime = $currentTime->copy()->addHours(2);
+    
+            // Если время отправки больше 20:00, устанавливаем его на следующее утро в 9:00
+            if ($sendTime->hour >= 20) {
+                $sendTime->addDay()->hour(9)->minute(0)->second(0);
+            }
+    
+            // Вычисляем разницу в секундах между текущим временем и временем отправки
+            $secondsUntilSend = $currentTime->diffInSeconds($sendTime);
+    
+            return $secondsUntilSend;
         }
-
-        // Вычисляем разницу в секундах между текущим временем и временем отправки
-        $secondsUntilSend = $currentTime->diffInSeconds($sendTime);
-
-        return $secondsUntilSend;
+        return 60;
     }
 }

@@ -18,8 +18,8 @@ class MenuCommand extends Command
     public static $command = '/menu';
 
     public static $title = [
-        'ru' => '🏠 Главное меню',
-        'en' => '🏠 Menu'
+        'ru' => '🏠 ГЛАВНОЕ МЕНЮ',
+        'en' => '🏠 MENU'
     ];
 
     public static $usage = ['/menu', 'menu', 'Главное меню', 'Menu'];
@@ -34,7 +34,7 @@ class MenuCommand extends Command
         $buttons = BotApi::inlineKeyboard([
             [array("ПОДОБРАТЬ СТРАХОВКУ", CalculateInsurance::$command, '')],
             [array(CalculateAmount::getTitle('ru'), CalculateAmount::$command, '')],
-            [array("Контакты", HelpCommand::$command, '')],
+            [array("КОНТАКТЫ", HelpCommand::$command, '')],
         ]);
 
         $text = implode("\n", [

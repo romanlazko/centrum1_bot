@@ -10,6 +10,7 @@ use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
+use Romanlazko\Telegram\Models\TelegramChat;
 
 class ChatFinishCalculatingInsurance
 {
@@ -22,9 +23,8 @@ class ChatFinishCalculatingInsurance
      */
     public function __construct(public $telegram_chat_id)
     {
-        TelegramChatEvent::create([
-            'telegram_chat_id' => $this->telegram_chat_id,
-            'event' => $this->event_name,
+        TelegramChat::find($telegram_chat_id)->update([
+            'event' => $this->event_name
         ]);
     }
 

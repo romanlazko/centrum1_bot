@@ -1,36 +1,45 @@
 <?php
 
-namespace App\Listeners;
+namespace App\Jobs;
 
 use App\Bots\Centrum1_bot\Commands\UserCommands\AssignTag;
 use App\Bots\Centrum1_bot\Commands\UserCommands\CalculateInsurance\BuyInsurance;
+use App\Bots\Centrum1_bot\Commands\UserCommands\CalculateInsurance\CalculateInsuranceAgain;
+use App\Bots\Centrum1_bot\Commands\UserCommands\CalculateInsurance\CalculateInsuranceNotifyLater;
 use App\Bots\Centrum1_bot\Commands\UserCommands\ContactManager;
 use App\Bots\Centrum1_bot\Commands\UserCommands\MenuCommand;
-use App\Events\ChatWantsToContactManager;
+use Illuminate\Bus\Batchable;
+use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldBeUnique;
+use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Foundation\Bus\Dispatchable;
+use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Queue\Middleware\WithoutOverlapping;
+use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\App;
 use Romanlazko\Telegram\App\Bot;
 use Romanlazko\Telegram\App\BotApi;
 use Romanlazko\Telegram\Models\TelegramBot;
 use Romanlazko\Telegram\Models\TelegramChat;
 
-use Illuminate\Contracts\Queue\ShouldQueue;
-
-class SendNotificationContactManagerFeedback implements ShouldQueue
+class SendNotificationContactManagerFeedback implements ShouldQueue, ShouldBeUnique
 {
+    use Batchable, Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+
+    public TelegramChat $telegram_chat;
+
     /**
-     * Create the event listener.
+     * Create a new job instance.
      */
-    public function __construct()
+    public function __construct(protected $telegram_chat_id)
     {
-        //
+        $this->telegram_chat = TelegramChat::find($telegram_chat_id);
     }
-
     /**
-     * Handle the event.
+     * Handle the job.
      */
-    public function handle(ChatWantsToContactManager $event): void
+    public function handle(): void
     {
-        $telegram_chat = TelegramChat::find($event->telegram_chat_id);
-
         $bot = new Bot(env('TELEGRAM_BOT_TOKEN', TelegramBot::first()->token));
 
         $buttons = BotApi::inlineKeyboard([
@@ -49,31 +58,18 @@ class SendNotificationContactManagerFeedback implements ShouldQueue
         $bot::sendMessage([
             'text'                      => $text,
             'reply_markup'              => $buttons,
-            'chat_id'                   => $telegram_chat->chat_id,
+            'chat_id'                   => $this->telegram_chat->chat_id,
             'parse_mode'                => 'Markdown',
         ]);
     }
 
-    public function uniqueId(ChatWantsToContactManager $event): string
+    public function uniqueId(): string
     {
-        return $event->telegram_chat_id;
+        return $this->telegram_chat->chat_id;
     }
 
-    public function withDelay(): int
+    public function middleware(): array
     {
-        $currentTime = now();
-
-        // Добавляем 2 часа к текущему времени
-        $sendTime = $currentTime->copy()->addHours(24);
-
-        // Если время отправки больше 20:00, устанавливаем его на следующее утро в 9:00
-        if ($sendTime->hour >= 16) {
-            $sendTime->addDay()->hour(10)->minute(0)->second(0);
-        }
-
-        // Вычисляем разницу в секундах между текущим временем и временем отправки
-        $secondsUntilSend = $currentTime->diffInSeconds($sendTime);
-
-        return $secondsUntilSend;
+        return [new WithoutOverlapping($this->telegram_chat->chat_id)];
     }
 }

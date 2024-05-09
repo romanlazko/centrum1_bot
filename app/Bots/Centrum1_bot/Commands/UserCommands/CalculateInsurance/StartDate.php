@@ -15,7 +15,7 @@ class StartDate extends Command
     public static $command = 'start_date';
 
     public static $title = [
-        'ru' => 'Начало страховки',
+        'ru' => 'НАЧАЛО СТРАХОВКИ',
         'en' => 'Start of insurance',
     ];
 

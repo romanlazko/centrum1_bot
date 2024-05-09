@@ -17,7 +17,7 @@ class DataIsSend extends Command
     public static $command = 'data_is_send';
 
     public static $title = [
-        'ru' => 'Данные отправлены',
+        'ru' => 'ДАННЫЕ ОТПРАВЛЕНЫ',
         'en' => 'Data is send',
     ];
 

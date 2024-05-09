@@ -31,21 +31,10 @@ class BuyInsurance extends Command
     {
         $telegram_chat = DB::getChat($updates->getChat()->getId());
 
-        $tag = Tag::where('name', '#оформление страховки')->first();
-
-        if (!$tag) {
-            $tag = Tag::create([
-                'name' => '#оформление страховки'
-            ]);
-        }
-
-        TelegramChatTag::create([
-            'telegram_chat_id' => $telegram_chat->id,
-            'tag_id' => $tag->id,
-        ]);
+        
 
         $buttons = BotApi::inlineKeyboardWithLink(
-            array('text' => "Заполнить форму", 'web_app' => ['url' => 'https://forms.amocrm.ru/rvcmwdc']),
+            array('text' => "ЗАПОЛНИТЬ ФОРМУ", 'web_app' => ['url' => 'https://forms.amocrm.ru/rvcmwdc']),
             [
                 [array(MenuCommand::getTitle('ru'), MenuCommand::$command, '')],
             ],

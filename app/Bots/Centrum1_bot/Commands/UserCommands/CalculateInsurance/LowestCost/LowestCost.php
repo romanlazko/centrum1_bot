@@ -39,7 +39,7 @@ class LowestCost extends Command
         ]);
 
         $buttons = BotApi::inlineKeyboard([
-            [array("⬅️ Назад", CalculateInsurance::$command, '')],
+            [array("⬅️ НАЗАД", CalculateInsurance::$command, '')],
         ]);
 
         $data = [

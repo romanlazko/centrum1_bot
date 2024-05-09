@@ -18,8 +18,8 @@ class CalculatePriceAndQuality extends Command
     public static $command = 'calculate_paq';
 
     public static $title = [
-        'ru' => 'Посчитать цену и качество страховки',
-        'en' => 'Calculate price and quality of insurance',
+        'ru' => 'ПОСЧИТАТЬ ЦЕНУ И КАЧЕСТВО СТРАХОВКИ',
+        'en' => 'CALCULATE PRICE AND QUALITY OF INSURANCE',
     ];
 
     public static $usage = ['calculate_paq'];

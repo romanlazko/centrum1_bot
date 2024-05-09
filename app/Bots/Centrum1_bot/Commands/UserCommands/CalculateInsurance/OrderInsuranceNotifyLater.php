@@ -15,8 +15,8 @@ class OrderInsuranceNotifyLater extends Command
     public static $command = 'oin_later';
 
     public static $title = [
-        'ru' => 'Напомнить позже',
-        'en' => 'Notify later',
+        'ru' => 'НАПОМНИТЕ МНЕ ПОЗЖЕ',
+        'en' => 'NOTIFY LATER',
     ];
 
     public static $usage = ['oin_later'];
@@ -26,7 +26,7 @@ class OrderInsuranceNotifyLater extends Command
     public function execute(Update $updates): Response
     {
         $text = implode("\n", [
-            "Хорошо мы напоним Вам позже об этом"
+            "Хорошо, мы напомним вам позже, хорошего вам дня!"
         ]);
 
         $data = [

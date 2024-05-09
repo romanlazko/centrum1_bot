@@ -22,8 +22,8 @@ class CalculateInsuranceAgain extends Command
     public static $command = 'ci_again';
 
     public static $title = [
-        'ru' => 'Повторный подсчет страховки',
-        'en' => 'Calculate Insurance Again',
+        'ru' => 'ПОВТОРНЫЙ ПОДСЧЕТ СТРАХОВКИ',
+        'en' => 'CALCULATE INSURANCE AGAIN',
     ];
 
     public static $usage = ['ci_again'];

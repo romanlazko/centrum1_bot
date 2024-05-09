@@ -18,8 +18,8 @@ class CalculateLowestCost extends Command
     public static $command = 'calculate_lc';
 
     public static $title = [
-        'ru' => 'Посчитать самую дешевую страховку',
-        'en' => 'Calculate the cheapest Insurance'
+        'ru' => 'ПОСЧИТАТЬ САМУЮ ДЕШЕВУЮ СТРАХОВКУ',
+        'en' => 'CALCULATE THE CHEAPEST INSURANCE'
     ];
 
     public static $usage = ['calculate_lc'];
