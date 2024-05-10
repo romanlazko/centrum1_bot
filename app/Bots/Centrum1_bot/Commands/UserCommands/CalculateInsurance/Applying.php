@@ -33,7 +33,7 @@ class Applying extends Command
 
         $buttons = BotApi::inlineKeyboard([
             $counter,
-            [array('11', Shengen::$command, '9')],
+            [array('11', Shengen::$command, '11')],
             [array('9', Shengen::$command, '9')],
             [array('6', Shengen::$command, '6')],
             [array('3', Shengen::$command, '3')],
