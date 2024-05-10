@@ -40,9 +40,12 @@ class Calculate extends Command
             'message_id' => $updates->getCallbackQuery()?->getMessage()->getMessageId(),
         ]);
 
-        $start_date = Carbon::parse($this->getConversation()->notes['start_date']);
-        $end_date = Carbon::parse($this->getConversation()->notes['end_date']);
-        $count_of_month = ceil($start_date->diffInMonths($end_date));
+        // $start_date = Carbon::parse($this->getConversation()->notes['start_date']);
+        // $end_date = Carbon::parse($this->getConversation()->notes['end_date']);
+        // $count_of_month = ceil($start_date->diffInMonths($end_date));
+
+
+        $count_of_month = $updates->getInlineData()->getApplying();
 
         $request = (object)[
             'type' => $updates->getInlineData()->getType(),

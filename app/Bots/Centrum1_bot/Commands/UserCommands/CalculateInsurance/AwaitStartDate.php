@@ -32,6 +32,6 @@ class AwaitStartDate extends Command
             'start_date' => $text
         ]);
         
-        return $this->bot->executeCommand(EndDate::$command);
+        return $this->bot->executeCommand(Applying::$command);
     }
 }

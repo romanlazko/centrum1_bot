@@ -7,11 +7,11 @@ class CommandsList extends DefaultCommandsList
 {
     static protected $commands = [
         'admin'     => [
-            AdminCommands\StartCommand::class,
-            AdminCommands\DefaultCommand::class,
-            AdminCommands\HelpCommand::class,
-            AdminCommands\ReferalCommand::class,
-            AdminCommands\GetReferalCommand::class,
+            // AdminCommands\StartCommand::class,
+            // AdminCommands\DefaultCommand::class,
+            // AdminCommands\HelpCommand::class,
+            // AdminCommands\ReferalCommand::class,
+            // AdminCommands\GetReferalCommand::class,
         ],
         'user'      => [
             
@@ -51,11 +51,12 @@ class CommandsList extends DefaultCommandsList
             UserCommands\CalculateInsurance\BirthCommand::class,
             UserCommands\CalculateInsurance\StartDate::class,
             UserCommands\CalculateInsurance\AwaitStartDate::class,
-            UserCommands\CalculateInsurance\SaveStartDate::class,
+            // UserCommands\CalculateInsurance\SaveStartDate::class,
 
-            UserCommands\CalculateInsurance\EndDate::class,
-            UserCommands\CalculateInsurance\AwaitEndDate::class,
-            UserCommands\CalculateInsurance\SaveEndDate::class,
+            // UserCommands\CalculateInsurance\EndDate::class,
+            // UserCommands\CalculateInsurance\AwaitEndDate::class,
+            // UserCommands\CalculateInsurance\SaveEndDate::class,
+            UserCommands\CalculateInsurance\Applying::class,
 
             UserCommands\CalculateInsurance\Shengen::class,
 
