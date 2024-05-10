@@ -22,7 +22,7 @@ class Colonnade extends Model
         return self::where('month', $request->count_of_month)
             ->get()
             ->filter(function ($price) use ($request) {
-                $birth = Carbon::parse($request->birth)->diff(Carbon::parse($request->start_date))->y;
+                $birth = Carbon::parse($request->birth)->diff(now())->y;
 
                 return $birth >= $price->min_age AND $birth <= $price->max_age;
             })

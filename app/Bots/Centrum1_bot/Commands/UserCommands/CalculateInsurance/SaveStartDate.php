@@ -2,6 +2,7 @@
 
 namespace App\Bots\Centrum1_bot\Commands\UserCommands\CalculateInsurance;
 
+use Carbon\Carbon;
 use Romanlazko\Telegram\App\Commands\Command;
 use Romanlazko\Telegram\App\Entities\Response;
 use Romanlazko\Telegram\App\Entities\Update;
@@ -21,9 +22,13 @@ class SaveStartDate extends Command
 
     public function execute(Update $updates): Response
     {
+        
+
         $this->getConversation()->update([
             'start_date' => $updates->getInlineData()->getTemp(),
         ]);
+
+        $updates->getInlineData()->setTemp(Carbon::parse($updates->getInlineData()->getTemp())->addYear()->subMonth()->format('Y-m'));
 
         return $this->bot->executeCommand(EndDate::$command);
     }

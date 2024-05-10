@@ -25,20 +25,42 @@ class StartDate extends Command
 
     public function execute(Update $updates): Response
     {
-        $updates->getFrom()->setExpectation(AwaitStartDate::$expectation);
+        // $updates->getFrom()->setExpectation(AwaitStartDate::$expectation);
 
-        $start_date = Carbon::create(now()->year, 9, 1);
+        // $start_date = Carbon::create(now()->year, 9, 1);
+
+        // $buttons = BotApi::inlineKeyboard([
+        //     [array(ContactManager::getTitle('ru'), ContactManager::$command, '')],
+        //     // [array($start_date->format('d.m.Y'), SaveStartDate::$command, $start_date->format('d.m.Y'))],
+        //     [array(MenuCommand::getTitle('ru'), MenuCommand::$command, '')],
+        // ], 'temp');
+
+        $start_date = Carbon::parse($updates->getInlineData()->getTemp());
+
+        $mounth = [
+			array('<', 						    StartDate::$command, 		$start_date->clone()->modify('-1 month')->format('Y-m')), 
+			array($start_date->format('M Y'), 	SaveStartDate::$command,    $start_date->format('Y-m')), 
+			array('>', 						    StartDate::$command, 		$start_date->clone()->modify('+1 month')->format('Y-m'))
+		];
+
+        $now    = Carbon::now();
 
         $buttons = BotApi::inlineKeyboard([
-            [array(ContactManager::getTitle('ru'), ContactManager::$command, '')],
-            // [array($start_date->format('d.m.Y'), SaveStartDate::$command, $start_date->format('d.m.Y'))],
-            [array(MenuCommand::getTitle('ru'), MenuCommand::$command, '')],
+            $mounth,
+            [array($now->addMonth()->format('M Y'), SaveStartDate::$command, $now->format('Y-m'))],
+            [array($now->addMonth()->format('M Y'), SaveStartDate::$command, $now->format('Y-m'))],
+            [array($now->addMonth()->format('M Y'), SaveStartDate::$command, $now->format('Y-m'))],
+            [array($now->addMonth()->format('M Y'), SaveStartDate::$command, $now->format('Y-m'))],
+            [
+                array("👈 Назад", MenuCommand::$command, ''),
+                array(MenuCommand::getTitle('ru'), MenuCommand::$command, ''),
+            ]
         ], 'temp');
 
         $text = implode("\n", [
             "Теперь давайте посчитаем срок, на который вам нужна страховка."."\n",
-            "Напишите пожалуйста *ОТ какого числа вам нужна новая страховка*, в формате ДД.ММ.ГГГГ:"."\n",
-            "_Обычно это следующий день, после окончания актуальной страховки_"
+            "Напишите пожалуйста *В КАКОМ МЕСЯЦЕ ДОЛЖНА НАЧАТЬСЯ новая страховка*:"."\n",
+            "_Обычно это следующий месяц, после окончания актуальной страховки_"
         ]);
 
         $data = [

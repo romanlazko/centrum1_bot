@@ -25,19 +25,38 @@ class EndDate extends Command
 
     public function execute(Update $updates): Response
     {
-        $updates->getFrom()->setExpectation(AwaitEndDate::$expectation);
+        // $updates->getFrom()->setExpectation(AwaitEndDate::$expectation);
 
-        $end_date = Carbon::parse($this->getConversation()->notes['start_date']);
+        // $end_date = Carbon::parse($this->getConversation()->notes['start_date']);
+
+        // $buttons = BotApi::inlineKeyboard([
+        //     [array(ContactManager::getTitle('ru'), ContactManager::$command, '')],
+        //     // [array($end_date->clone()->addMonth(11)->subDay()->format('d.m.Y'), SaveEndDate::$command, $end_date->clone()->addMonth(11)->subDay()->format('d.m.Y'))],
+        //     // [array($end_date->clone()->addMonth(12)->subDay()->format('d.m.Y'), SaveEndDate::$command, $end_date->clone()->addMonth(12)->subDay()->format('d.m.Y'))],
+        //     [array(MenuCommand::getTitle('ru'), MenuCommand::$command, '')],
+        // ], 'temp');
+
+        $end_date = Carbon::parse($updates->getInlineData()->getTemp());
+
+        $mounth = [
+			array('<', 						    EndDate::$command, 		$end_date->clone()->modify('-1 month')->format('Y-m')), 
+			array($end_date->format('M Y'), 	SaveEndDate::$command,    $end_date->format('Y-m')), 
+			array('>', 						    EndDate::$command, 		$end_date->clone()->modify('+1 month')->format('Y-m'))
+		];
 
         $buttons = BotApi::inlineKeyboard([
-            [array(ContactManager::getTitle('ru'), ContactManager::$command, '')],
-            // [array($end_date->clone()->addMonth(11)->subDay()->format('d.m.Y'), SaveEndDate::$command, $end_date->clone()->addMonth(11)->subDay()->format('d.m.Y'))],
-            // [array($end_date->clone()->addMonth(12)->subDay()->format('d.m.Y'), SaveEndDate::$command, $end_date->clone()->addMonth(12)->subDay()->format('d.m.Y'))],
-            [array(MenuCommand::getTitle('ru'), MenuCommand::$command, '')],
+            $mounth,
+            [array($end_date->subMonth()->format('M Y'), SaveEndDate::$command, $end_date->format('Y-m'))],
+            [array($end_date->subMonth()->format('M Y'), SaveEndDate::$command, $end_date->format('Y-m'))],
+            [array($end_date->subMonth()->format('M Y'), SaveEndDate::$command, $end_date->format('Y-m'))],
+            [
+                array("👈 Назад", MenuCommand::$command, ''),
+                array(MenuCommand::getTitle('ru'), MenuCommand::$command, ''),
+            ]
         ], 'temp');
 
         $text = implode("\n", [
-            "Напишите пожалуйста дату *ДО какого числа вам нужна новая страховка*, в формате ДД.ММ.ГГГГ:"
+            "Напишите пожалуйста *В КАКОМ МЕСЯЦЕ ДОЛЖНА ЗАКОНЧИТЬСЯ новая страховка*:"
         ]);
 
         $data = [

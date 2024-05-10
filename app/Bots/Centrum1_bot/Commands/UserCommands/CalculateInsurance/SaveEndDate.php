@@ -2,6 +2,7 @@
 
 namespace App\Bots\Centrum1_bot\Commands\UserCommands\CalculateInsurance;
 
+use Carbon\Carbon;
 use Romanlazko\Telegram\App\Commands\Command;
 use Romanlazko\Telegram\App\Entities\Response;
 use Romanlazko\Telegram\App\Entities\Update;
@@ -22,7 +23,7 @@ class SaveEndDate extends Command
     public function execute(Update $updates): Response
     {
         $this->getConversation()->update([
-            'end_date' => $updates->getInlineData()->getTemp(),
+            'end_date' => Carbon::parse($updates->getInlineData()->getTemp())->addMonth()->format('Y-m'),
         ]);
 
         return $this->bot->executeCommand(Shengen::$command);

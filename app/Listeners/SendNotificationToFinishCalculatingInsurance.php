@@ -3,15 +3,12 @@
 namespace App\Listeners;
 
 use App\Bots\Centrum1_bot\Commands\UserCommands\CalculateInsurance\CalculateInsurance;
-use App\Bots\Centrum1_bot\Commands\UserCommands\CalculateInsurance\CalculateInsuranceAgain;
 use App\Bots\Centrum1_bot\Commands\UserCommands\CalculateInsurance\CalculateInsuranceNotifyLater;
 use App\Bots\Centrum1_bot\Commands\UserCommands\ContactManager;
 use App\Bots\Centrum1_bot\Commands\UserCommands\MenuCommand;
 use App\Events\ChatStartCalculatingInsurance;
-use App\Models\TelegramChatEvent;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
-use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Support\Facades\App;
 use Romanlazko\Telegram\App\Bot;
 use Romanlazko\Telegram\App\BotApi;
@@ -78,6 +75,6 @@ class SendNotificationToFinishCalculatingInsurance implements ShouldQueue, Shoul
 
             return $secondsUntilSend;
         }
-        return 60;
+        return 1200;
     }
 }
