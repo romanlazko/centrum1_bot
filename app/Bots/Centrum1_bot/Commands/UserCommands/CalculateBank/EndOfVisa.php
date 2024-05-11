@@ -31,7 +31,7 @@ class EndOfVisa extends Command
             [array($now->addMonth()->format('M Y'), Applying::$command, $now->format('Y-m-d'))],
             [array($now->addMonth()->format('M Y'), Applying::$command, $now->format('Y-m-d'))],
             [
-                array("👈 Назад", MenuCommand::$command, ''),
+                array("👈 НАЗАД", MenuCommand::$command, ''),
                 array(MenuCommand::getTitle('ru'), MenuCommand::$command, ''),
             ]
         ], 'end_of_visa');

@@ -27,7 +27,7 @@ class Applying extends Command
             [array('6', Deadline::$command, '6')],
             [array('3', Deadline::$command, '3')],
             [
-                array("👈 Назад", EndOfVisa::$command, ''),
+                array("👈 НАЗАД", EndOfVisa::$command, ''),
                 array(MenuCommand::getTitle('ru'), MenuCommand::$command, ''),
             ]
         ], 'applying');

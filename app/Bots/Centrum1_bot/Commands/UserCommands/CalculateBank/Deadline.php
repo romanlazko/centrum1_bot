@@ -32,7 +32,7 @@ class Deadline extends Command
             [array($now->addMonth()->format('M Y'), Calculate::$command, $now->format('Y-m-d'))],
             [array($now->addMonth()->format('M Y'), Calculate::$command, $now->format('Y-m-d'))],
             [
-                array("👈 Назад", Applying::$command, ''),
+                array("👈 НАЗАД", Applying::$command, ''),
                 array(MenuCommand::getTitle('ru'), MenuCommand::$command, ''),
             ]
         ], 'deadline');

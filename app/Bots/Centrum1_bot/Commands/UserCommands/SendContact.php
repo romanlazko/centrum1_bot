@@ -23,7 +23,7 @@ class SendContact extends Command
     public function execute(Update $updates): Response
     {
         $buttons = BotApi::inlineKeyboardWithLink(
-            array('text' => 'Контакт', 'url'  => "tg://user?id={$updates->getChat()->getId()}")
+            array('text' => 'КОНТАКТ', 'url'  => "tg://user?id={$updates->getChat()->getId()}")
         );
 
         $text = implode("\n", [

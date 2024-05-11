@@ -29,9 +29,9 @@ class Profile extends Command
         $telegram_chat = DB::getChat($updates->getChat()->getId());
 
         $buttons = BotApi::inlineKeyboard([
-            [array("Имя: ".$telegram_chat->profile_first_name ?? null, FirstName::$command, '')],
-            [array("Фамилия: ".$telegram_chat->profile_last_name ?? null, LastName::$command, '')],
-            [array("Телефон: ".$telegram_chat->profile_phone ?? null, Phone::$command, '')],
+            [array("ИМЯ: ".$telegram_chat->profile_first_name ?? null, FirstName::$command, '')],
+            [array("ФАМИЛИЯ: ".$telegram_chat->profile_last_name ?? null, LastName::$command, '')],
+            [array("ТЕЛЕФОН: ".$telegram_chat->profile_phone ?? null, Phone::$command, '')],
             [array(MenuCommand::getTitle('ru'), MenuCommand::$command, '')],
         ]);
 

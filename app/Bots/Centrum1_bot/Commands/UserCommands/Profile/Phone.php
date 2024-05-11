@@ -27,7 +27,7 @@ class Phone extends Command
         $updates->getFrom()->setExpectation(AwaitPhone::$expectation);
 
         $buttons = BotApi::inlineKeyboard([
-            [array("Назад", Profile::$command, '')],
+            [array("НАЗАД", Profile::$command, '')],
         ]);
 
         $text = implode("\n", [

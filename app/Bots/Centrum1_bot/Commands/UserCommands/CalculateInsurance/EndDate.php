@@ -50,7 +50,7 @@ class EndDate extends Command
             [array($end_date->subMonth()->format('M Y'), SaveEndDate::$command, $end_date->format('Y-m'))],
             [array($end_date->subMonth()->format('M Y'), SaveEndDate::$command, $end_date->format('Y-m'))],
             [
-                array("👈 Назад", MenuCommand::$command, ''),
+                array("👈 НАЗАД", MenuCommand::$command, ''),
                 array(MenuCommand::getTitle('ru'), MenuCommand::$command, ''),
             ]
         ], 'temp');

@@ -27,7 +27,7 @@ class LastName extends Command
         $updates->getFrom()->setExpectation(AwaitLastName::$expectation);
 
         $buttons = BotApi::inlineKeyboard([
-            [array("Назад", Profile::$command, '')],
+            [array("НАЗАД", Profile::$command, '')],
         ]);
 
         $text = implode("\n", [

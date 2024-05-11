@@ -43,7 +43,7 @@ class Calculate extends Command
 
         $buttons = BotApi::inlineKeyboardWithLink(
             [
-                'text' => 'Записаться на оформление подтверждения',
+                'text' => 'ЗАПИСАТЬСЯ НА ОФОРМЛЕНИЕ ПОДТВЕРЖДЕНИЯ',
                 'url' => 'https://t.me/bankercz_bot'
             ],
             [

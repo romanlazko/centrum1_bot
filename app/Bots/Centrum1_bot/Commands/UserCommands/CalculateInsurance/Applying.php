@@ -38,7 +38,7 @@ class Applying extends Command
             [array('6', Shengen::$command, '6')],
             [array('3', Shengen::$command, '3')],
             [
-                array("👈 Назад", StartDate::$command, ''),
+                array("👈 НАЗАД", StartDate::$command, ''),
                 array(MenuCommand::getTitle('ru'), MenuCommand::$command, ''),
             ]
         ], 'applying');
