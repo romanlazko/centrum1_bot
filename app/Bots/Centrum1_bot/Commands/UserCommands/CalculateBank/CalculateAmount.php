@@ -10,7 +10,7 @@ class CalculateAmount extends Command
     public static $command = 'calculate_amount';
 
     public static $title = [
-        'ru' => '💰 ПОДСЧИТАТЬ СУММУ ДЛЯ БАНКА',
+        'ru' => '💰 РАССЧЕТ СПРАВКИ ИЗ БАНКА',
         'en' => '💰 CALCULATE THE AMOUNT YOU NEED'
     ];
 
