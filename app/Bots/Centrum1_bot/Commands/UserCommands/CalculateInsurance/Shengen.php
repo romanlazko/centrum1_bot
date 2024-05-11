@@ -24,8 +24,8 @@ class Shengen extends Command
     public function execute(Update $updates): Response
     {
         $buttons = BotApi::inlineKeyboard([
-            [array("ДА", Type::$command, true)],
-            [array("НЕТ, ХОЧУ СЭКОНОМИТЬ", Type::$command, false)],
+            [array("ДА", Type::$command, '1')],
+            [array("НЕТ, ХОЧУ СЭКОНОМИТЬ", Type::$command, '0')],
             [array(MenuCommand::getTitle('ru'), MenuCommand::$command, '')],
         ], 'shengen');
 

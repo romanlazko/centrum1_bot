@@ -40,6 +40,8 @@ class Calculate extends Command
             'message_id' => $updates->getCallbackQuery()?->getMessage()->getMessageId(),
         ]);
 
+        $shengen = $updates->getInlineData()->getShengen() == '1' ? true : false;
+
         // $start_date = Carbon::parse($this->getConversation()->notes['start_date']);
         // $end_date = Carbon::parse($this->getConversation()->notes['end_date']);
         // $count_of_month = ceil($start_date->diffInMonths($end_date));
@@ -49,7 +51,7 @@ class Calculate extends Command
 
         $request = (object)[
             'type' => $updates->getInlineData()->getType(),
-            'shengen' => $updates->getInlineData()->getShengen() == '1' ? true : false,
+            'shengen' => $shengen,
             'start_date' => $this->getConversation()->notes['start_date'],
             'count_of_month' => $count_of_month,
             'birth' => $this->getConversation()->notes['birth'],
@@ -61,11 +63,27 @@ class Calculate extends Command
             return $this->handleError('*Не удалось подобрать страховку с заданными параметрами*');
         }
 
+        $shengen_text = "";
+
+        if ($insurance->shengen AND $shengen) {
+            $shengen_text = implode("\n", [
+                "Обратите внимание в цену вашей страховки *входит покрытие зоны Шенген*.",
+                "В случае краткосрочных поездок вам больше нет необходимости покупать дополнительную страховку👍"
+            ]);
+        }
+        
+        if ($insurance->shengen AND !$shengen) {
+            $shengen_text = implode("\n", [
+                "ОТЛИЧНАЯ НОВОСТЬ:",
+                "На данный момент к вашему варианту страховки покрытие зоны Шенген идет в подарок - бесплатно🎁"
+            ]);
+        }
+
         $text = implode("\n", [
             "Мы подобрали для вас самую подходящую страховку и более того, добавили к ней все существующие актульно скидки и бонусы, о которых вам расскажет менеджер при оформлении договора!"."\n",
             "Вам подходит страховка: *{$insurance->type}*\n",
             "Её цена для вас составит на ". $count_of_month . " месяцев - " . $insurance->price . " крон!"."\n",
-            "Обратите внимание, что в страховку ". ($insurance->shengen == '1' ? "*включено покрытие зоны Шенген*" : "*не включено покрытие зоны Шенген*"),
+            $shengen_text
         ]);
 
         $buttons = BotApi::inlineKeyboard([
