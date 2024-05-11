@@ -3,6 +3,7 @@
 namespace App\Bots\Centrum1_bot\Commands\UserCommands\CalculateInsurance;
 
 use App\Bots\Centrum1_bot\Commands\UserCommands\CalculateInsurance\BetterQuality\BetterQuality;
+use App\Bots\Centrum1_bot\Commands\UserCommands\CalculateInsurance\CalculateByCompany\CalculateByCompany;
 use App\Bots\Centrum1_bot\Commands\UserCommands\CalculateInsurance\ContinuingTreatment\ContinuingTreatment;
 use App\Bots\Centrum1_bot\Commands\UserCommands\CalculateInsurance\LowestCost\LowestCost;
 use App\Bots\Centrum1_bot\Commands\UserCommands\CalculateInsurance\PriceAndQuality\PriceAndQuality;
@@ -31,6 +32,7 @@ class CalculateInsurance extends Command
     public function execute(Update $updates): Response
     {
         $buttons = BotApi::inlineKeyboard([
+            [array(CalculateByCompany::getTitle('ru'), CalculateByCompany::$command, '')],
             [array(LowestCost::getTitle('ru'), LowestCost::$command, '')],
             [array(PriceAndQuality::getTitle('ru'), PriceAndQuality::$command, '')],
             [array(BetterQuality::getTitle('ru'), BetterQuality::$command, '')],

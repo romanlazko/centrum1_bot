@@ -30,6 +30,10 @@ class CommandsList extends DefaultCommandsList
             UserCommands\CalculateInsurance\CalculateInsuranceAgain::class,
             UserCommands\CalculateInsurance\CalculateInsuranceNotifyLater::class,
             UserCommands\CalculateInsurance\OrderInsuranceNotifyLater::class,
+
+            //CalculateByCompany
+            UserCommands\CalculateInsurance\CalculateByCompany\CalculateByCompany::class,
+            
             // LowestCost
             UserCommands\CalculateInsurance\LowestCost\LowestCost::class,
             UserCommands\CalculateInsurance\LowestCost\CalculateLowestCost::class,
