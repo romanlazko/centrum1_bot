@@ -23,7 +23,7 @@ class OppositionInsurance extends Command
     public static $command = 'opposition';
 
     public static $title = [
-        'ru' => 'МЕНЯ НЕ УСТРАИВАЕТ ВАШЕ ПРЕДЛОЖЕНИЕ',
+        'ru' => 'НЕ УСТРАИВАЕТ ПРЕДЛОЖЕНИЕ',
         'en' => 'I DO NOT AGREE WITH YOUR OFFER',
     ];
 
