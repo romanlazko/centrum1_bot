@@ -4,9 +4,11 @@ namespace App\Bots\Centrum1_bot\Commands\UserCommands\CalculateInsurance\LowestC
 
 use App\Bots\Centrum1_bot\Commands\UserCommands\CalculateInsurance\AwaitBirth;
 use App\Bots\Centrum1_bot\Commands\UserCommands\CalculateInsurance\CalculateInsurance;
+use App\Bots\Centrum1_bot\Commands\UserCommands\CalculateInsurance\SaveBirth;
 use App\Bots\Centrum1_bot\Commands\UserCommands\MenuCommand;
 use Romanlazko\Telegram\App\BotApi;
 use Romanlazko\Telegram\App\Commands\Command;
+use Romanlazko\Telegram\App\DB;
 use Romanlazko\Telegram\App\Entities\Response;
 use Romanlazko\Telegram\App\Entities\Update;
 
@@ -25,6 +27,8 @@ class LowestCost extends Command
 
     public function execute(Update $updates): Response
     {
+        $telegram_chat = DB::getChat($updates->getChat()->getId());
+
         $updates->getFrom()->setExpectation(AwaitBirth::$expectation);
 
         $this->getConversation()->update([
@@ -39,7 +43,8 @@ class LowestCost extends Command
         ]);
 
         $buttons = BotApi::inlineKeyboard([
-            [array("⬅️ НАЗАД", CalculateInsurance::$command, '')],
+            $telegram_chat->profile_birth ? [array("Использовать: ".$telegram_chat->profile_birth, SaveBirth::$command, '')] : [],
+            [array("👈 НАЗАД", CalculateInsurance::$command, '')],
         ]);
 
         $data = [

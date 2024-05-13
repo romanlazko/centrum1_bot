@@ -5,6 +5,9 @@ namespace App\Bots\Centrum1_bot\Commands\UserCommands;
 use App\Bots\Centrum1_bot\Commands\UserCommands\CalculateBank\CalculateAmount;
 use App\Bots\Centrum1_bot\Commands\UserCommands\CalculateInsurance\BirthCommand;
 use App\Bots\Centrum1_bot\Commands\UserCommands\CalculateInsurance\CalculateInsurance;
+use App\Bots\Centrum1_bot\Commands\UserCommands\Consulting\Consulting;
+use App\Bots\Centrum1_bot\Commands\UserCommands\PMJ\PMJ;
+use App\Bots\Centrum1_bot\Commands\UserCommands\VisaAndResidentPermit\VisaAndResidentPermit;
 use App\Jobs\SendQuestionnaire;
 use App\Jobs\SendQuestionnaireAfter3Hours;
 use App\Models\Questionnaire\Questionnaire;
@@ -32,13 +35,21 @@ class MenuCommand extends Command
         $updates->getInlineData()->unset();
 
         $buttons = BotApi::inlineKeyboard([
-            [array("ПОДОБРАТЬ СТРАХОВКУ", CalculateInsurance::$command, '')],
+            [array("📈 ПОДОБРАТЬ СТРАХОВКУ", CalculateInsurance::$command, '')],
             [array(CalculateAmount::getTitle('ru'), CalculateAmount::$command, '')],
-            [array("КОНТАКТЫ", HelpCommand::$command, '')],
+            [array(VisaAndResidentPermit::getTitle('ru'), VisaAndResidentPermit::$command, '')],
+            [array(Adress::getTitle('ru'), Adress::$command, '')],
+            [array(PMJ::getTitle('ru'), PMJ::$command, '')],
+            [array(Citizenship::getTitle('ru'), Citizenship::$command, '')],
+            [array(MyApplicationTakingLongTimeToProcess::getTitle('ru'), MyApplicationTakingLongTimeToProcess::$command, '')],
+            [array("☎️ НАШИ КОНТАКТЫ", HelpCommand::$command, '')],
         ]);
 
         $text = implode("\n", [
-            "Здравствуйте, мы рады, что вы решили воспользоваться нашим ботом и выбрать для себя не только самую выгодную, но и самую подходящую вам страховку, давайте начнем! 👆"
+            "Здравствуйте!😊"."\n",
+            "Я — виртуальный помощниĸ Центра поддержĸи и страхования иностранцев в Чехии🇨🇿",
+            "Здесь вы можете узнать ĸаĸ мы можем помочь в вашей ситуации: от оформления виз и продления статуса до переезда родственниĸов и подготовĸи доĸументов."."\n",
+            "Выберите интересующую тему ниже ⬇",
         ]);
 
         $data = [

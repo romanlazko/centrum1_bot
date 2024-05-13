@@ -10,6 +10,12 @@ use Romanlazko\Telegram\Models\TelegramMessage;
 class CustomTelegramChat extends TelegramChat
 {
     protected $table = 'telegram_chats';
+
+    protected $casts = [
+        'profile_birth' => 'date',
+        'settings' => 'object',
+    ];
+
     public function tags()
     {
         return $this->belongsToMany(Tag::class, 'telegram_chat_tags', 'telegram_chat_id', 'tag_id');

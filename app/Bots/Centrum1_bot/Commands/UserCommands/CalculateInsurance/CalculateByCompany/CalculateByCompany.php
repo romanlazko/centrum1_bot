@@ -44,9 +44,9 @@ class CalculateByCompany extends Command
             [array("MAXIMA", SaveInsurance::$command, 'maxima')],
             [array("PVZP", SaveInsurance::$command, 'pvzp')],
             [array("SLAVIA", SaveInsurance::$command, 'slavia')],
-            [array("COLONADE", SaveInsurance::$command, 'colonade')],
+            [array("COLONNADE", SaveInsurance::$command, 'colonade')],
             [array("SV (EX. ERGO)", SaveInsurance::$command, 'sv')],
-            [array("⬅️ НАЗАД", CalculateInsurance::$command, '')],
+            [array("👈 НАЗАД", CalculateInsurance::$command, '')],
         ], 'current_insurance');
 
         $data = [

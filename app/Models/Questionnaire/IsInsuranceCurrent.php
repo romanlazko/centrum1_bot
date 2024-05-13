@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\Questionarie;
+namespace App\Models\Questionnaire;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;

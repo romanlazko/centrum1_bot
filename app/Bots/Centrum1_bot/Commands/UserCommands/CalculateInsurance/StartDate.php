@@ -51,7 +51,7 @@ class StartDate extends Command
         //     [array($now->addMonth()->format('M Y'), SaveStartDate::$command, $now->format('Y-m'))],
         //     [array($now->addMonth()->format('M Y'), SaveStartDate::$command, $now->format('Y-m'))],
         //     [
-        //         array("👈 Назад", MenuCommand::$command, ''),
+        //         array("👈 НАЗАД", MenuCommand::$command, ''),
         //         array(MenuCommand::getTitle('ru'), MenuCommand::$command, ''),
         //     ]
         // ], 'temp');

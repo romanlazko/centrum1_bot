@@ -3,6 +3,7 @@
 namespace App\Bots\Centrum1_bot\Commands\UserCommands\CalculateInsurance;
 
 use Romanlazko\Telegram\App\Commands\Command;
+use Romanlazko\Telegram\App\DB;
 use Romanlazko\Telegram\App\Entities\Response;
 use Romanlazko\Telegram\App\Entities\Update;
 
@@ -30,6 +31,12 @@ class AwaitBirth extends Command
 
         $this->getConversation()->update([
             'birth' => $text
+        ]);
+
+        $telegram_chat = DB::getChat($updates->getChat()->getId());
+
+        $telegram_chat->update([
+            'profile_birth' => $text
         ]);
         
         return $this->bot->executeCommand(StartDate::$command);

@@ -19,7 +19,6 @@ class Config
                 'criterion'         => null,
                 'current_insurance' => null,
                 'insurance_name'    => null,
-                
                 'temp'              => null,
             ],
             'lang'              => 'ru',

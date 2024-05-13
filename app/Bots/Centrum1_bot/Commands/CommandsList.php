@@ -53,6 +53,7 @@ class CommandsList extends DefaultCommandsList
 
             UserCommands\CalculateInsurance\AwaitBirth::class,
             UserCommands\CalculateInsurance\BirthCommand::class,
+            UserCommands\CalculateInsurance\SaveBirth::class,
             UserCommands\CalculateInsurance\StartDate::class,
             UserCommands\CalculateInsurance\AwaitStartDate::class,
             // UserCommands\CalculateInsurance\SaveStartDate::class,
@@ -76,6 +77,7 @@ class CommandsList extends DefaultCommandsList
 
             // Profile
             UserCommands\Profile\Profile::class,
+
             UserCommands\Profile\FirstName::class,
             UserCommands\Profile\AwaitFirstName::class,
 
@@ -84,8 +86,23 @@ class CommandsList extends DefaultCommandsList
 
             UserCommands\Profile\Phone::class,
             UserCommands\Profile\AwaitPhone::class,
-            
 
+            // LeaveContact
+            UserCommands\LeaveContact\LeaveContact::class,
+
+            UserCommands\LeaveContact\FirstName::class,
+            UserCommands\LeaveContact\AwaitFirstName::class,
+
+            UserCommands\LeaveContact\LastName::class,
+            UserCommands\LeaveContact\AwaitLastName::class,
+
+            UserCommands\LeaveContact\Phone::class,
+            UserCommands\LeaveContact\AwaitPhone::class,
+
+            UserCommands\LeaveContact\Situation::class,
+            UserCommands\LeaveContact\AwaitSituation::class,
+
+            UserCommands\LeaveContact\Send::class,
 
             // Calculate bank
             UserCommands\CalculateBank\CalculateAmount::class,
@@ -93,6 +110,73 @@ class CommandsList extends DefaultCommandsList
             UserCommands\CalculateBank\Applying::class,
             UserCommands\CalculateBank\Deadline::class,
             UserCommands\CalculateBank\Calculate::class,
+
+            // VisaAndResidentPermit
+            UserCommands\VisaAndResidentPermit\VisaAndResidentPermit::class,
+
+            // Student
+            UserCommands\VisaAndResidentPermit\Student\Student::class,
+            UserCommands\VisaAndResidentPermit\Student\ImGettingDiploma::class,
+            UserCommands\VisaAndResidentPermit\Student\IveBeenExpelled::class,
+            UserCommands\VisaAndResidentPermit\Student\IWantStudentVisa::class,
+            UserCommands\VisaAndResidentPermit\Student\IWantChangePurposeOfStaying::class,
+            UserCommands\VisaAndResidentPermit\Student\IWantExtendMyStudyVisa::class,
+            UserCommands\VisaAndResidentPermit\Student\Nostrification::class,
+
+            // Work
+            UserCommands\VisaAndResidentPermit\Work\Work::class,
+            UserCommands\VisaAndResidentPermit\Work\IWantWorkVisa::class,
+            UserCommands\VisaAndResidentPermit\Work\IveBeenFired::class,
+            UserCommands\VisaAndResidentPermit\Work\IWantExtendMyWorkVisa::class,
+            UserCommands\VisaAndResidentPermit\Work\IWantChangeEmployer::class,
+
+            // Business
+            UserCommands\VisaAndResidentPermit\Business\Business::class,
+            UserCommands\VisaAndResidentPermit\Business\IWantBusinessVisa::class,
+            UserCommands\VisaAndResidentPermit\Business\IWantOpenBusiness::class,
+            UserCommands\VisaAndResidentPermit\Business\IWantExtendMyBusinessVisa::class,
+
+            // Family
+            UserCommands\VisaAndResidentPermit\Family\Family::class,
+            UserCommands\VisaAndResidentPermit\Family\RegistrationOfMarriage::class,
+            UserCommands\VisaAndResidentPermit\Family\IWantFamilyVisa::class,
+            UserCommands\VisaAndResidentPermit\Family\IWantExtendMyFamilyVisa::class,
+            UserCommands\VisaAndResidentPermit\Family\IWantTemporaryResidence::class,
+            UserCommands\VisaAndResidentPermit\Family\IWantExtendMyTemporaryResidence::class,
+
+            // AfterUniversityVisa
+            UserCommands\VisaAndResidentPermit\AfterUniversityVisa\AfterUniversityVisa::class,
+            UserCommands\VisaAndResidentPermit\AfterUniversityVisa\IGotAfterUniversityVisa::class,
+            UserCommands\VisaAndResidentPermit\AfterUniversityVisa\IWantAfterUniversityVisa::class,
+
+            // LanguageCourses
+            UserCommands\VisaAndResidentPermit\LanguageCourses\LanguageCourses::class,
+            UserCommands\VisaAndResidentPermit\LanguageCourses\LanguageCourses2324::class,
+            UserCommands\VisaAndResidentPermit\LanguageCourses\LanguageCourses99::class,
+            UserCommands\VisaAndResidentPermit\LanguageCourses\PrivatUniversity::class,
+
+            // Adress
+            UserCommands\Adress::class,
+
+            // PMJ
+            UserCommands\PMJ\PMJ::class,
+            UserCommands\PMJ\IWantPMJ::class,
+            UserCommands\PMJ\PMJExperience::class,
+            UserCommands\PMJ\RetentPMJWhenLeaving::class,
+            UserCommands\PMJ\TurnkeyPMJ::class,
+
+            // Citizenship
+            UserCommands\Citizenship::class,
+
+            // MyApplicationTakingLongTimeToProcess
+            UserCommands\MyApplicationTakingLongTimeToProcess::class,
+
+            // UserCommands\VisaAndResidentPermit\Student\ElseQuestion::class,
+            // UserCommands\VisaAndResidentPermit\Student\Work::class,
+            // UserCommands\VisaAndResidentPermit\Student\Business::class,
+            // UserCommands\VisaAndResidentPermit\Student\Family::class,
+            // UserCommands\VisaAndResidentPermit\Student\AfterUniversityVisa::class,
+            // UserCommands\VisaAndResidentPermit\Student\LanguageCourses::class,
         ],
         
     ];

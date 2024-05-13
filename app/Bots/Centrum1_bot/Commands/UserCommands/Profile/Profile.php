@@ -3,8 +3,6 @@
 namespace App\Bots\Centrum1_bot\Commands\UserCommands\Profile;
 
 use App\Bots\Centrum1_bot\Commands\UserCommands\MenuCommand;
-use App\Jobs\SendQuestionnaireAfter3Hours;
-use App\Models\Profile as ProfileModel;
 use Romanlazko\Telegram\App\BotApi;
 use Romanlazko\Telegram\App\Commands\Command;
 use Romanlazko\Telegram\App\DB;

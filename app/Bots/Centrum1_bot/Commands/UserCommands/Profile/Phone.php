@@ -2,8 +2,6 @@
 
 namespace App\Bots\Centrum1_bot\Commands\UserCommands\Profile;
 
-use App\Bots\Centrum1_bot\Commands\UserCommands\MenuCommand;
-use App\Jobs\SendQuestionnaireAfter3Hours;
 use Romanlazko\Telegram\App\BotApi;
 use Romanlazko\Telegram\App\Commands\Command;
 use Romanlazko\Telegram\App\Entities\Response;
@@ -27,7 +25,7 @@ class Phone extends Command
         $updates->getFrom()->setExpectation(AwaitPhone::$expectation);
 
         $buttons = BotApi::inlineKeyboard([
-            [array("НАЗАД", Profile::$command, '')],
+            [array("👈 НАЗАД", Profile::$command, '')],
         ]);
 
         $text = implode("\n", [
