@@ -168,7 +168,9 @@ class Index extends Component implements HasForms, HasTable
                             SendAdvertisementJob::dispatch($data['advertisement'], $telegram_chat->chat_id);
                         });
                     })
-            ]);
+            ])
+            ->deferLoading()
+            ->defaultSort('updated_at', 'desc');
     }
     public function render()
     {
