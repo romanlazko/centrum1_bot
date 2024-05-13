@@ -92,11 +92,13 @@ class Index extends Component implements HasForms, HasTable
                     ->wrapHeader()
                     ->label('Дата следующей связи')
                     ->type('date')
+                    ->extraAttributes(['class' => 'w-max'])
                     ->sortable(),
                 TextInputColumn::make('issue_date')
                     ->label('Предпологаемая дата оформления')
                     ->wrapHeader()
                     ->type('date')
+                    ->extraAttributes(['class' => 'w-max'])
                     ->sortable(),
                 TextInputColumn::make('notes')
                     ->label('Заметки')
