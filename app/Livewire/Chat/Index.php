@@ -59,7 +59,7 @@ class Index extends Component implements HasForms, HasTable
         // ->toArray();
 
         return $table
-            ->query(CustomTelegramChat::with('tags:name')->orderByDesc('updated_at'))
+            ->query(CustomTelegramChat::with('tags:name'))
             ->columns([
                 // ImageColumn::make('avatar')
                 //     ->defaultImageUrl(fn (CustomTelegramChat $telegram_chat) => (new Bot($this->telegram_bot->token))::getPhoto(['file_id' => $telegram_chat->photo]))
@@ -168,8 +168,7 @@ class Index extends Component implements HasForms, HasTable
                             SendAdvertisementJob::dispatch($data['advertisement'], $telegram_chat->chat_id);
                         });
                     })
-            ])
-            ->deferLoading();
+            ]);
     }
     public function render()
     {
